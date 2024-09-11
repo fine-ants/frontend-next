@@ -7,5 +7,5 @@ export default function Home() {
 
 const Text = styled.div`
   color: ${designSystem.color.primary.blue500};
-  font-size: 20px;
+  ${designSystem.font.display1}
 `;

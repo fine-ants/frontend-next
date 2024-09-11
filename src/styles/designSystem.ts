@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const colors = {
   white: "#FFFFFF",
   white04: "#FFFFFF0A",
@@ -42,78 +44,126 @@ export const colors = {
 };
 
 const font = {
-  display1: {
-    font: "700 64px/77px 'IBM Plex Sans KR 700', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  display2: {
-    font: "700 48px/58px 'IBM Plex Sans KR 700', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  display3: {
-    font: "500 32px/39px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
+  display1: css`
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 77px;
+    letter-spacing: -0.02rem;
+  `,
+  display2: css`
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: -0.02rem;
+  `,
+  display3: css`
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    letter-spacing: -0.02rem;
+  `,
 
-  heading1: {
-    font: "500 48px/58px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  heading2: {
-    font: "700 32px/39px 'IBM Plex Sans KR 700', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  heading3: {
-    font: "700 24px/29px 'IBM Plex Sans KR 700', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  heading4: {
-    font: "700 20px/24px 'IBM Plex Sans KR 700', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
+  heading1: css`
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: -0.02rem;
+  `,
+  heading2: css`
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+    letter-spacing: -0.02rem;
+  `,
+  heading3: css`
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.02rem;
+  `,
+  heading4: css`
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02rem;
+  `,
 
-  title1: {
-    font: "500 28px/34px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title2: {
-    font: "500 24px/29px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title3: {
-    font: "500 20px/24px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title4: {
-    font: "500 16px/19px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title5: {
-    font: "500 14px/17px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title6: {
-    font: "500 12px/14px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  title7: {
-    font: "500 10px/12px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
+  title1: css`
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: -0.02rem;
+  `,
+  title2: css`
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.02rem;
+  `,
+  title3: css`
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02rem;
+  `,
+  title4: css`
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.02rem;
+  `,
+  title5: css`
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.02rem;
+  `,
+  title6: css`
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.02rem;
+  `,
+  title7: css`
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: -0.02rem;
+  `,
 
-  body1: { font: "400 20px/30px 'IBM Plex Sans KR 400', sans-serif" },
-  body2: { font: "400 16px/24px 'IBM Plex Sans KR 400', sans-serif" },
-  body3: { font: "400 14px/21px 'IBM Plex Sans KR 400', sans-serif" },
-  body4: { font: "400 12px/18px 'IBM Plex Sans KR 400', sans-serif" },
+  body1: css`
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+  `,
+  body2: css`
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  `,
+  body3: css`
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  `,
+  body4: css`
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  `,
 
-  button1: {
-    font: "500 16px/19px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
-  button2: {
-    font: "500 14px/17px 'IBM Plex Sans KR 500', sans-serif",
-    letterSpacing: "-0.02rem",
-  },
+  button1: css`
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.02rem;
+  `,
+  button2: css`
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.02rem;
+  `,
 };
 
 export default {
