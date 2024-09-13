@@ -1,13 +1,16 @@
 import BIImage from "@/assets/icons/logo/ic_fineants-header.svg";
+import Button from "@/components/Buttons/Button";
+import { TextButton } from "@/components/Buttons/TextButton";
 import { NavBar } from "@/components/NavBar/NavBar";
 import { PortfoliosDropdown } from "@/components/PortfoliosDropdown/PortfoliosDropdown";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 export default function HeaderTopD() {
-  // const router = useRouter();
+  const router = useRouter();
 
   // const { user } = useContext(UserContext);
 
@@ -20,13 +23,13 @@ export default function HeaderTopD() {
     { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
 
-  // const moveToSignInPage = () => {
-  //   router.push(Routes.SIGNIN);
-  // };
+  const moveToSignInPage = () => {
+    router.push(Routes.SIGNIN);
+  };
 
-  // const moveToSignUpPage = () => {
-  //   router.push(Routes.SIGNUP);
-  // };
+  const moveToSignUpPage = () => {
+    router.push(Routes.SIGNUP);
+  };
 
   return (
     <StyledHeaderTopD>
@@ -59,6 +62,15 @@ export default function HeaderTopD() {
             </Button>
           </ButtonWrapper>
         )} */}
+
+        <ButtonWrapper>
+          <TextButton size="h32" color="white" onClick={moveToSignInPage}>
+            로그인
+          </TextButton>
+          <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
+            회원가입
+          </Button>
+        </ButtonWrapper>
       </HeaderRight>
     </StyledHeaderTopD>
   );
@@ -102,7 +114,7 @@ const StyledBrandIdentityLink = styled(Link)`
   }
 `;
 
-// const ButtonWrapper = styled.div`
-//   display: flex;
-//   gap: 8px;
-// `;
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+`;
