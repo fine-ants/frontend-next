@@ -1,5 +1,5 @@
 import { Menu, MenuItem, MenuProps, SxProps } from "@mui/material";
-import { ReactNode, SyntheticEvent, useState } from "react";
+import { ReactNode, SyntheticEvent, useMemo, useState } from "react";
 
 type DropdownMenuProps = {
   sx?: SxProps;
@@ -25,31 +25,43 @@ export function useDropdown() {
     setAnchorElement(null);
   };
 
-  function DropdownMenu({ sx, children, ...menuProps }: DropdownMenuProps) {
-    return (
-      <Menu
-        sx={sx}
-        {...menuProps}
-        anchorEl={anchorElement}
-        open={open}
-        onClose={onClose}>
-        {children}
-      </Menu>
-    );
-  }
-
-  function DropdownItem({ sx, onClick, children }: DropdownItemProps) {
-    const onClickHandler = () => {
-      if (onClick) onClick();
-      onClose();
+  const DropdownMenu = useMemo(() => {
+    return function DropdownMenuComponent({
+      sx,
+      children,
+      ...menuProps
+    }: DropdownMenuProps) {
+      return (
+        <Menu
+          sx={sx}
+          {...menuProps}
+          anchorEl={anchorElement}
+          open={open}
+          onClose={onClose}>
+          {children}
+        </Menu>
+      );
     };
+  }, [anchorElement, open, onClose]);
 
-    return (
-      <MenuItem sx={sx} onClick={onClickHandler}>
-        {children}
-      </MenuItem>
-    );
-  }
+  const DropdownItem = useMemo(() => {
+    return function DropdownItemComponent({
+      sx,
+      onClick,
+      children,
+    }: DropdownItemProps) {
+      const onClickHandler = () => {
+        if (onClick) onClick();
+        onClose();
+      };
+
+      return (
+        <MenuItem sx={sx} onClick={onClickHandler}>
+          {children}
+        </MenuItem>
+      );
+    };
+  }, [onClose]);
 
   return { isOpen: open, onOpen, onClose, DropdownMenu, DropdownItem };
 }
