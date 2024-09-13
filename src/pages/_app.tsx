@@ -1,4 +1,5 @@
 import GlobalStyles from "@/styles/GlobalStyles";
+import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
 import type { AppProps } from "next/app";
 import localFont from "next/font/local";
 
@@ -29,9 +30,11 @@ const ibmPlexSansKR = localFont({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={ibmPlexSansKR.className}>
-      <GlobalStyles />
-      <Component {...pageProps} class />
-    </main>
+    <AppCacheProvider>
+      <main className={ibmPlexSansKR.className}>
+        <GlobalStyles />
+        <Component {...pageProps} class />
+      </main>
+    </AppCacheProvider>
   );
 }
