@@ -14,7 +14,6 @@ import portfolioImageM3 from "@/assets/images/portfolioM3.svg";
 import BasePage from "@/components/BasePage";
 import Button from "@/components/Buttons/Button";
 import { TextButton } from "@/components/Buttons/TextButton";
-import Footer from "@/components/Footer";
 import Header from "@/components/Header/Header";
 import Routes from "@/constants/Routes";
 import {
@@ -168,7 +167,6 @@ export default function LandingPage() {
           </ComfortContainer>
         </LandingBottom>
       </BasePage>
-      <Footer />
     </>
   );
 }

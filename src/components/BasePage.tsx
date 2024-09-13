@@ -9,6 +9,7 @@ import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
 import { ReactNode } from "react";
 import styled from "styled-components";
+import Footer from "./Footer";
 
 type Props = {
   children: ReactNode;
@@ -23,7 +24,7 @@ export default function BasePage({ children }: Props) {
   return (
     <StyledBasePage $isMobile={isMobile} $isIOSPWA={isIOSPWA}>
       <Main $isMobile={isMobile}>{children}</Main>
-      {/* <Footer /> */}
+      <Footer />
 
       {/* {isMobile && <NavBarFixed />} */}
     </StyledBasePage>
