@@ -14,6 +14,8 @@ import portfolioImageM3 from "@/assets/images/portfolioM3.svg";
 import BasePage from "@/components/BasePage";
 import Button from "@/components/Buttons/Button";
 import { TextButton } from "@/components/Buttons/TextButton";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header/Header";
 import Routes from "@/constants/Routes";
 import {
   MAIN_HEADER_TOTAL_HEIGHT_D,
@@ -39,125 +41,135 @@ export default function LandingPage() {
   };
 
   return (
-    <BasePage>
-      <LandingTopBG $isMobile={isMobile}>
-        <Image
-          src={LandingTop}
-          alt="Landing Background"
-          layout="fill"
-          objectFit="cover"
-        />
-        <LandingTopBGContent $isMobile={isMobile}>
-          <LandingTopText $isMobile={isMobile}>
-            <p>
-              주식 자산 관리를 <br />더 쉽고 간편하게
-            </p>
-            <h2>
-              실시간 자산 현황을 확인하고{isMobile && <br />} 똑똑한 투자 관리를
-              시작하세요
-            </h2>
-            {isMobile && (
-              <ButtonWrapper>
-                <TextButton size="h32" color="white" onClick={moveToSignInPage}>
-                  로그인
-                </TextButton>
-                <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
-                  회원가입
-                </Button>
-              </ButtonWrapper>
-            )}
-          </LandingTopText>
-          <LandingTopChart
-            src={landingTopChart}
-            alt="landingTopChart"
-            $isMobile={isMobile}
+    <>
+      <Header />
+      <BasePage>
+        <LandingTopBG $isMobile={isMobile}>
+          <Image
+            src={LandingTop}
+            alt="Landing Background"
+            layout="fill"
+            objectFit="cover"
           />
-        </LandingTopBGContent>
-      </LandingTopBG>
-
-      <LandingBottom $isMobile={isMobile}>
-        <FeatureContainer>
-          <FeatureTitle $isMobile={isMobile}>대시보드</FeatureTitle>
-          <FeatureDescription $isMobile={isMobile}>
-            보유 자산을{isMobile && <br />} 한 눈에 확인하세요
-          </FeatureDescription>
-          <DashboardImage
-            width={100}
-            height={100}
-            src={isMobile ? dashboardM.src : dashboardD.src}
-            alt="dashboard"
-            $isMobile={isMobile}
-          />
-        </FeatureContainer>
-
-        <FeatureContainer>
-          <FeatureTitle $isMobile={isMobile}>포트폴리오</FeatureTitle>
-          <FeatureDescription $isMobile={isMobile}>
-            투자 목적에 맞는 다양한{isMobile && <br />}
-            포트폴리오를 생성하고{isDesktop && <br />}
-            자산을{isMobile && <br />} 효율적으로 관리할 수 있습니다
-          </FeatureDescription>
-          <PortfolioImageContainer $isMobile={isMobile}>
-            <PortfolioImage
-              src={isMobile ? portfolioImageM1.src : portfolioImageD1.src}
-              alt="portfolio1"
+          <LandingTopBGContent $isMobile={isMobile}>
+            <LandingTopText $isMobile={isMobile}>
+              <p>
+                주식 자산 관리를 <br />더 쉽고 간편하게
+              </p>
+              <h2>
+                실시간 자산 현황을 확인하고{isMobile && <br />} 똑똑한 투자
+                관리를 시작하세요
+              </h2>
+              {isMobile && (
+                <ButtonWrapper>
+                  <TextButton
+                    size="h32"
+                    color="white"
+                    onClick={moveToSignInPage}>
+                    로그인
+                  </TextButton>
+                  <Button
+                    variant="primary"
+                    size="h32"
+                    onClick={moveToSignUpPage}>
+                    회원가입
+                  </Button>
+                </ButtonWrapper>
+              )}
+            </LandingTopText>
+            <LandingTopChart
+              src={landingTopChart}
+              alt="landingTopChart"
               $isMobile={isMobile}
             />
-            <PortfolioImage
-              src={isMobile ? portfolioImageM2.src : portfolioImageD2.src}
-              alt="portfolio2"
-              $isMobile={isMobile}
-            />
-            <PortfolioImage
-              src={isMobile ? portfolioImageM3.src : portfolioImageD3.src}
-              alt="portfolio3"
-              $isMobile={isMobile}
-            />
-          </PortfolioImageContainer>
-        </FeatureContainer>
+          </LandingTopBGContent>
+        </LandingTopBG>
 
-        <ComfortContainer $isMobile={isMobile}>
-          <div>
-            <FeatureTitle $isMobile={isMobile}>편의 기능</FeatureTitle>
+        <LandingBottom $isMobile={isMobile}>
+          <FeatureContainer>
+            <FeatureTitle $isMobile={isMobile}>대시보드</FeatureTitle>
             <FeatureDescription $isMobile={isMobile}>
-              성공적인 투자 관리를 위한
-              <br />
-              다양한 기능을 지원합니다
+              보유 자산을{isMobile && <br />} 한 눈에 확인하세요
             </FeatureDescription>
-          </div>
+            <DashboardImage
+              width={100}
+              height={100}
+              src={isMobile ? dashboardM.src : dashboardD.src}
+              alt="dashboard"
+              $isMobile={isMobile}
+            />
+          </FeatureContainer>
 
-          <FeatureBoxWrapper $isMobile={isMobile}>
-            <FeatureBox $isMobile={isMobile}>
-              <Image
-                src={featureIconWatchlist.src}
-                alt="관심 종목"
-                width={isMobile ? 56 : 80}
-                height={isMobile ? 56 : 80}
+          <FeatureContainer>
+            <FeatureTitle $isMobile={isMobile}>포트폴리오</FeatureTitle>
+            <FeatureDescription $isMobile={isMobile}>
+              투자 목적에 맞는 다양한{isMobile && <br />}
+              포트폴리오를 생성하고{isDesktop && <br />}
+              자산을{isMobile && <br />} 효율적으로 관리할 수 있습니다
+            </FeatureDescription>
+            <PortfolioImageContainer $isMobile={isMobile}>
+              <PortfolioImage
+                src={isMobile ? portfolioImageM1.src : portfolioImageD1.src}
+                alt="portfolio1"
+                $isMobile={isMobile}
               />
-              관심 종목
-            </FeatureBox>
-            <FeatureBox $isMobile={isMobile}>
-              <Image
-                src={featureIconChart.src}
-                alt="종목 상세 차트"
-                width={isMobile ? 56 : 80}
-                height={isMobile ? 56 : 80}
+              <PortfolioImage
+                src={isMobile ? portfolioImageM2.src : portfolioImageD2.src}
+                alt="portfolio2"
+                $isMobile={isMobile}
               />
-              종목 상세 차트
-            </FeatureBox>
-            <FeatureBox $isMobile={isMobile}>
-              <Image
-                src={featureIconNotification.src}
-                alt="손익 알림"
-                width={isMobile ? 56 : 80}
-                height={isMobile ? 56 : 80}
+              <PortfolioImage
+                src={isMobile ? portfolioImageM3.src : portfolioImageD3.src}
+                alt="portfolio3"
+                $isMobile={isMobile}
               />
-              손익 알림
-            </FeatureBox>
-          </FeatureBoxWrapper>
-        </ComfortContainer>
-      </LandingBottom>
-    </BasePage>
+            </PortfolioImageContainer>
+          </FeatureContainer>
+
+          <ComfortContainer $isMobile={isMobile}>
+            <div>
+              <FeatureTitle $isMobile={isMobile}>편의 기능</FeatureTitle>
+              <FeatureDescription $isMobile={isMobile}>
+                성공적인 투자 관리를 위한
+                <br />
+                다양한 기능을 지원합니다
+              </FeatureDescription>
+            </div>
+
+            <FeatureBoxWrapper $isMobile={isMobile}>
+              <FeatureBox $isMobile={isMobile}>
+                <Image
+                  src={featureIconWatchlist.src}
+                  alt="관심 종목"
+                  width={isMobile ? 56 : 80}
+                  height={isMobile ? 56 : 80}
+                />
+                관심 종목
+              </FeatureBox>
+              <FeatureBox $isMobile={isMobile}>
+                <Image
+                  src={featureIconChart.src}
+                  alt="종목 상세 차트"
+                  width={isMobile ? 56 : 80}
+                  height={isMobile ? 56 : 80}
+                />
+                종목 상세 차트
+              </FeatureBox>
+              <FeatureBox $isMobile={isMobile}>
+                <Image
+                  src={featureIconNotification.src}
+                  alt="손익 알림"
+                  width={isMobile ? 56 : 80}
+                  height={isMobile ? 56 : 80}
+                />
+                손익 알림
+              </FeatureBox>
+            </FeatureBoxWrapper>
+          </ComfortContainer>
+        </LandingBottom>
+      </BasePage>
+      <Footer />
+    </>
   );
 }
 
