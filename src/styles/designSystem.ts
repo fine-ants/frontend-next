@@ -1,5 +1,3 @@
-import { css } from "styled-components";
-
 const colors = {
   white: "#FFFFFF",
   white04: "#FFFFFF0A",
@@ -44,121 +42,121 @@ const colors = {
 };
 
 const font = {
-  display1: css`
+  display1: `
     font-weight: 700;
     font-size: 64px;
     line-height: 77px;
     letter-spacing: -0.02rem;
   `,
-  display2: css`
+  display2: `
     font-weight: 700;
     font-size: 48px;
     line-height: 58px;
     letter-spacing: -0.02rem;
   `,
-  display3: css`
+  display3: `
     font-weight: 500;
     font-size: 32px;
     line-height: 39px;
     letter-spacing: -0.02rem;
   `,
 
-  heading1: css`
+  heading1: `
     font-weight: 500;
     font-size: 48px;
     line-height: 58px;
     letter-spacing: -0.02rem;
   `,
-  heading2: css`
+  heading2: `
     font-weight: 700;
     font-size: 32px;
     line-height: 39px;
     letter-spacing: -0.02rem;
   `,
-  heading3: css`
+  heading3: `
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
     letter-spacing: -0.02rem;
   `,
-  heading4: css`
+  heading4: `
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
     letter-spacing: -0.02rem;
   `,
 
-  title1: css`
+  title1: `
     font-weight: 500;
     font-size: 28px;
     line-height: 34px;
     letter-spacing: -0.02rem;
   `,
-  title2: css`
+  title2: `
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
     letter-spacing: -0.02rem;
   `,
-  title3: css`
+  title3: `
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
     letter-spacing: -0.02rem;
   `,
-  title4: css`
+  title4: `
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     letter-spacing: -0.02rem;
   `,
-  title5: css`
+  title5: `
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     letter-spacing: -0.02rem;
   `,
-  title6: css`
+  title6: `
     font-weight: 500;
     font-size: 12px;
     line-height: 14px;
     letter-spacing: -0.02rem;
   `,
-  title7: css`
+  title7: `
     font-weight: 500;
     font-size: 10px;
     line-height: 12px;
     letter-spacing: -0.02rem;
   `,
 
-  body1: css`
+  body1: `
     font-weight: 400;
     font-size: 20px;
     line-height: 30px;
   `,
-  body2: css`
+  body2: `
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
   `,
-  body3: css`
+  body3: `
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
   `,
-  body4: css`
+  body4: `
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
   `,
 
-  button1: css`
+  button1: `
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
     letter-spacing: -0.02rem;
   `,
-  button2: css`
+  button2: `
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
@@ -257,3 +255,20 @@ export function getColor(color: ColorType) {
 
   throw new Error(`"${color}"은 유효하지 않은 색상 값입니다.`);
 }
+
+export const parseFontString = (fontString: string): Record<string, string> => {
+  return fontString
+    .trim()
+    .split(";")
+    .filter(Boolean)
+    .reduce((acc: Record<string, string>, style) => {
+      const [key, value] = style.split(":").map((item) => item.trim());
+      if (key && value) {
+        const camelCaseKey = key.replace(/-([a-z])/g, (g) =>
+          g[1].toUpperCase()
+        );
+        acc[camelCaseKey] = value;
+      }
+      return acc;
+    }, {});
+};

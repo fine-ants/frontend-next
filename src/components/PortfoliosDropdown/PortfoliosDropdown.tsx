@@ -1,6 +1,6 @@
 import Routes from "@/constants/Routes";
 import { useDropdown } from "@/hooks/useDropdown";
-import designSystem from "@/styles/designSystem";
+import designSystem, { parseFontString } from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
 import Link from "next/link";
 import { MouseEvent } from "react";
@@ -121,7 +121,7 @@ const dropdownMenuSx = {
 };
 
 const fixedDropdownItemSx = {
-  // {designSystem.font.body2}
+  ...parseFontString(designSystem.font.body2),
   color: designSystem.color.neutral.gray600,
   borderRadius: "4px",
 };

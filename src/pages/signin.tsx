@@ -1,3 +1,100 @@
-export default function Signin() {
-  return <div>Signin page</div>;
+import login_Image from "@/assets/images/login_Image.png";
+import AuthBasePage from "@/features/auth/components/AuthBasePage";
+import { AuthOnPrevButton } from "@/features/auth/components/AuthOnPrevButton";
+import SignInForm from "@/features/auth/components/SignInForm";
+import useResponsiveLayout from "@/hooks/useResponsiveLayout";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+
+export default function SignInPage() {
+  const { isDesktop, isMobile } = useResponsiveLayout();
+
+  const router = useRouter();
+
+  return (
+    <AuthBasePage>
+      <Wrapper $isDesktop={isDesktop} $isMobile={isMobile}>
+        {isMobile && (
+          <InnerWrapperM>
+            <PrevButtonWrapper>
+              <AuthOnPrevButton onPrev={() => router.back()} />
+            </PrevButtonWrapper>
+            <SignInFormWrapper $isMobile={isMobile}>
+              <SignInForm />
+            </SignInFormWrapper>
+          </InnerWrapperM>
+        )}
+
+        {isDesktop && (
+          <>
+            <SignInFormContainer>
+              <SignInForm />
+            </SignInFormContainer>
+            <ImageContainer>
+              <StyledImage src={login_Image.src} alt="FineAnts 로그인 배너" />
+            </ImageContainer>
+          </>
+        )}
+      </Wrapper>
+    </AuthBasePage>
+  );
 }
+const Wrapper = styled.div<{ $isDesktop: boolean; $isMobile: boolean }>`
+  width: 100%;
+  max-width: 1824px;
+  height: ${({ $isMobile }) => ($isMobile ? "100%" : "auto")};
+  padding: ${({ $isDesktop }) => ($isDesktop ? "0 48px 48px 48px" : "0")};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ $isDesktop }) => ($isDesktop ? "16px" : 0)};
+`;
+
+const InnerWrapperM = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const PrevButtonWrapper = styled.div`
+  width: 100%;
+  height: 56px;
+  margin-bottom: 16px;
+  padding-inline: 8px;
+  display: flex;
+  align-items: center;
+`;
+
+const SignInFormWrapper = styled.div<{ $isMobile: boolean }>`
+  width: 100%;
+  padding-inline: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: ${({ $isMobile }) => ($isMobile ? 1 : 0)};
+`;
+
+const SignInFormContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  padding-top: 156px;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+`;
+
+const ImageContainer = styled.div`
+  width: 45%;
+  position: absolute;
+  right: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: calc(100vh - 96px);
+`;
