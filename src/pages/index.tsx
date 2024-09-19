@@ -19,6 +19,7 @@ import Routes from "@/constants/Routes";
 import {
   MAIN_HEADER_TOTAL_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_M,
+  TV_TICKER_TAPE_WIDGET_HEIGHT,
 } from "@/constants/styleConstants";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
@@ -173,10 +174,13 @@ export default function LandingPage() {
 
 const LandingTopBG = styled.div<{ $isMobile: boolean }>`
   width: 100%;
+  //TODO : TV_TICKER_TAPE를 추가하기 전까지 해당 높이 제외되고 있음
   height: calc(
     100vh -
       ${({ $isMobile }) =>
-        $isMobile ? MAIN_HEADER_TOTAL_HEIGHT_M : MAIN_HEADER_TOTAL_HEIGHT_D}px
+        $isMobile
+          ? MAIN_HEADER_TOTAL_HEIGHT_M
+          : MAIN_HEADER_TOTAL_HEIGHT_D - TV_TICKER_TAPE_WIDGET_HEIGHT}px
   );
   display: flex;
   justify-content: center;
