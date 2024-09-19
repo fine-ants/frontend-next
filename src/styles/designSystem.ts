@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-export const colors = {
+const colors = {
   white: "#FFFFFF",
   white04: "#FFFFFF0A",
   white08: "#FFFFFF20",
@@ -166,7 +166,7 @@ const font = {
   `,
 };
 
-export default {
+const designSystem = {
   color: {
     primary: {
       blue50: colors.blue50,
@@ -222,6 +222,8 @@ export default {
 
   font,
 };
+
+export default designSystem;
 
 type RGB =
   | `rgb(${number}, ${number}, ${number})`
