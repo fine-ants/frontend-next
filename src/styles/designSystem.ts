@@ -255,3 +255,20 @@ export function getColor(color: ColorType) {
 
   throw new Error(`"${color}"은 유효하지 않은 색상 값입니다.`);
 }
+
+export const parseFontString = (fontString: string): Record<string, string> => {
+  return fontString
+    .trim()
+    .split(";")
+    .filter(Boolean)
+    .reduce((acc: Record<string, string>, style) => {
+      const [key, value] = style.split(":").map((item) => item.trim());
+      if (key && value) {
+        const camelCaseKey = key.replace(/-([a-z])/g, (g) =>
+          g[1].toUpperCase()
+        );
+        acc[camelCaseKey] = value;
+      }
+      return acc;
+    }, {});
+};
