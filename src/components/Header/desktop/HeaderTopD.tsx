@@ -3,6 +3,7 @@ import Button from "@/components/Buttons/Button";
 import { TextButton } from "@/components/Buttons/TextButton";
 import { NavBar } from "@/components/NavBar/NavBar";
 import { PortfoliosDropdown } from "@/components/PortfoliosDropdown/PortfoliosDropdown";
+import SearchBarD from "@/components/SearchBar/desktop/SearchBarD";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
 import Link from "next/link";
@@ -48,7 +49,7 @@ export default function HeaderTopD() {
         </NavBar>
       </HeaderLeft>
       <HeaderRight>
-        {/* <SearchBarD sx={{ width: "328px" }} /> */}
+        <SearchBarD sx={{ width: "328px" }} />
 
         {/* {user ? (
           <UserControls user={user} />
