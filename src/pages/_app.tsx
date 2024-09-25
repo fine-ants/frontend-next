@@ -60,10 +60,6 @@ const queryClient = new QueryClient({
   //   },
   // }),
 });
-const a =
-  process.env.NODE_ENV === "production"
-    ? process.env.NEXT_CLIENT_URL_PROD
-    : process.env.NEXT_CLIENT_URL_DEV;
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
