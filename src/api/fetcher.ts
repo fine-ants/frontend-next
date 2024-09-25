@@ -21,65 +21,106 @@ const handleError = async (response: Response) => {
   throw new Error(`HTTP error! status: ${response.status}`);
 };
 
+// 데이터를 받지 않는 요청 (GET, DELETE)
+const requestWithoutData = async <T>(
+  url: string,
+  method: string,
+  options: FetcherOptions
+): Promise<FetcherResponse<T>> => {
+  const fetchOptions: FetcherOptions = {
+    ...options,
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+  };
+
+  const response = await fetch(url, fetchOptions);
+
+  if (!response.ok) {
+    await handleError(response);
+  }
+
+  const json = await response.json();
+  return { data: json };
+};
+
+// 데이터를 받는 요청 (POST, PUT, PATCH)
+const requestWithData = async <T>(
+  url: string,
+  method: string,
+  data: Record<string, unknown>,
+  options: FetcherOptions
+): Promise<FetcherResponse<T>> => {
+  const fetchOptions: FetcherOptions = {
+    ...options,
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+    body: JSON.stringify(data),
+  };
+
+  const response = await fetch(url, fetchOptions);
+
+  if (!response.ok) {
+    await handleError(response);
+  }
+
+  const json = await response.json();
+  return { data: json };
+};
+
 const createFetcher = (
   baseURL: string,
   defaultOptions: FetcherOptions = {}
 ) => {
-  const request = async <T>(
-    url: string,
-    method: string,
-    data?: any,
-    options: FetcherOptions = {}
-  ): Promise<FetcherResponse<T>> => {
-    const fetchOptions: FetcherOptions = {
-      ...defaultOptions,
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        ...(defaultOptions.headers || {}),
-        ...(options.headers || {}),
-      },
-      ...options,
-    };
-
-    if (data) {
-      fetchOptions.body = JSON.stringify(data);
-    }
-
-    const response = await fetch(`${baseURL}${url}`, fetchOptions);
-
-    if (!response.ok) {
-      await handleError(response);
-    }
-
-    const json = await response.json();
-    return { data: json };
-  };
-
   return {
     get: <T>(
       url: string,
       options?: FetcherOptions
-    ): Promise<FetcherResponse<T>> => request<T>(url, "GET", null, options),
-    post: <T>(
-      url: string,
-      data: any,
-      options?: FetcherOptions
-    ): Promise<FetcherResponse<T>> => request<T>(url, "POST", data, options),
-    put: <T>(
-      url: string,
-      data: any,
-      options?: FetcherOptions
-    ): Promise<FetcherResponse<T>> => request<T>(url, "PUT", data, options),
+    ): Promise<FetcherResponse<T>> =>
+      requestWithoutData<T>(`${baseURL}${url}`, "GET", {
+        ...defaultOptions,
+        ...options,
+      }),
     delete: <T>(
       url: string,
       options?: FetcherOptions
-    ): Promise<FetcherResponse<T>> => request<T>(url, "DELETE", null, options),
+    ): Promise<FetcherResponse<T>> =>
+      requestWithoutData<T>(`${baseURL}${url}`, "DELETE", {
+        ...defaultOptions,
+        ...options,
+      }),
+    post: <T>(
+      url: string,
+      data: Record<string, unknown>,
+      options?: FetcherOptions
+    ): Promise<FetcherResponse<T>> =>
+      requestWithData<T>(`${baseURL}${url}`, "POST", data, {
+        ...defaultOptions,
+        ...options,
+      }),
+    put: <T>(
+      url: string,
+      data: Record<string, unknown>,
+      options?: FetcherOptions
+    ): Promise<FetcherResponse<T>> =>
+      requestWithData<T>(`${baseURL}${url}`, "PUT", data, {
+        ...defaultOptions,
+        ...options,
+      }),
     patch: <T>(
       url: string,
-      data: any,
+      data: Record<string, unknown>,
       options?: FetcherOptions
-    ): Promise<FetcherResponse<T>> => request<T>(url, "PATCH", data, options),
+    ): Promise<FetcherResponse<T>> =>
+      requestWithData<T>(`${baseURL}${url}`, "PATCH", data, {
+        ...defaultOptions,
+        ...options,
+      }),
   };
 };
 
