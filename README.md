@@ -1,40 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 프로젝트 마이그레이션: React에서 Next.js로
 
-## Getting Started
+## 개요
 
-First, run the development server:
+이 레포지토리는 [기존 React 프로젝트](https://github.com/fine-ants/frontend)를 Next.js로 마이그레이션한 프로젝트입니다. Next.js의 기능을 활용하여 서버 사이드 렌더링(SSR), 페이지 라우팅, 성능 최적화 등을 도입하고있습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 주요 변경 사항
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **SSR 및 SSG 도입 예정**: 기존 클라이언트 사이드 렌더링 방식을 서버 사이드 렌더링(SSR)과 정적 사이트 생성(SSG)으로 전환하여 초기 로딩 속도를 개선하고 SEO를 강화할 계획입니다.
+- **페이지 라우팅 개선 예정**: React Router를 Next.js의 파일 기반 라우팅 시스템으로 대체하여 더 직관적인 페이지 관리가 가능하도록 변경할 예정입니다.
+- **성능 최적화 예정**: Next.js의 이미지 최적화, 코드 스플리팅 등 빌트인 최적화 기능을 활용하여 사용자 경험을 향상시킬 계획입니다.
+- **`fetch`의 캐싱 및 프리패칭 도입 예정**: Next.js의 빌트인 `fetch` 함수에서 제공하는 캐싱 및 프리패칭 기능을 활용하여 데이터를 미리 불러와 사용자 경험을 개선할 예정입니다. 이를 통해 빈번한 네트워크 요청을 줄이고, 페이지 전환 시 빠른 응답을 제공할 수 있도록 할 것입니다. 특히 페이지별 데이터의 사전 로드 및 캐싱을 통해 클라이언트 성능을 최적화할 계획입니다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
