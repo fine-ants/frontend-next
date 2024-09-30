@@ -1,7 +1,7 @@
 const { exec } = require("child_process");
 const os = require("os");
 
-const url = "http://localhost:3000";
+const url = "https://localhost:3000";
 
 if (os.platform() === "win32") {
   exec(`start ${url}`);
