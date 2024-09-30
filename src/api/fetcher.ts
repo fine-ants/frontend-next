@@ -50,17 +50,17 @@ const requestWithoutData = async <T>(
 const requestWithData = async <T>(
   url: string,
   method: string,
-  data: Record<string, unknown>,
-  options: FetcherOptions
+  data?: {}, // data가 선택적이도록 수정
+  options?: FetcherOptions
 ): Promise<FetcherResponse<T>> => {
   const fetchOptions: FetcherOptions = {
     ...options,
     method,
     headers: {
       "Content-Type": "application/json",
-      ...(options.headers || {}),
+      ...(options?.headers || {}),
     },
-    body: JSON.stringify(data),
+    ...(data ? { body: JSON.stringify(data) } : {}), // data가 있을 때만 body 추가
   };
 
   const response = await fetch(url, fetchOptions);
@@ -96,7 +96,7 @@ const createFetcher = (
       }),
     post: <T>(
       url: string,
-      data: Record<string, unknown>,
+      data?: {}, // data를 선택적으로 받도록 수정
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "POST", data, {
@@ -105,7 +105,7 @@ const createFetcher = (
       }),
     put: <T>(
       url: string,
-      data: Record<string, unknown>,
+      data: {},
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "PUT", data, {
@@ -114,7 +114,7 @@ const createFetcher = (
       }),
     patch: <T>(
       url: string,
-      data: Record<string, unknown>,
+      data: {},
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "PATCH", data, {
