@@ -6,11 +6,13 @@ import { PortfoliosDropdown } from "@/components/PortfoliosDropdown/PortfoliosDr
 import SearchBarD from "@/components/SearchBar/desktop/SearchBarD";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
+import { UserContext } from "@/features/user/context/UserContext";
 import Link from "next/link";
+import { useContext } from "react";
 import styled from "styled-components";
 
 export default function HeaderTopD() {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const navItems = [
     {

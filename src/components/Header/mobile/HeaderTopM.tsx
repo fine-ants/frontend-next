@@ -2,13 +2,15 @@ import fineantsLogo from "@/assets/icons/logo/ic_fineants_white.svg";
 import { IconButton } from "@/components/Buttons/IconButton";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_M } from "@/constants/styleConstants";
+import { UserContext } from "@/features/user/context/UserContext";
 
 import { useBoolean } from "@fineants/demolition";
 import Link from "next/link";
+import { useContext } from "react";
 import styled from "styled-components";
 
 export default function HeaderTopM() {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const { setTrue: onOpenSearchPanel } = useBoolean();
 

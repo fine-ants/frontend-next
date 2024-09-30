@@ -1,16 +1,17 @@
 import Routes from "@/constants/Routes";
+import { UserContext } from "@/features/user/context/UserContext";
 import { useDropdown } from "@/hooks/useDropdown";
 import designSystem, { parseFontString } from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
 import Link from "next/link";
-import { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
 import styled from "styled-components";
 import { Icon } from "../Icon";
 
 export function PortfoliosDropdown() {
   // const router = useRouter();
 
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 

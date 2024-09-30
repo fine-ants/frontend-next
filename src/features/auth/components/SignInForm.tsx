@@ -10,6 +10,7 @@ import { useText, validateEmail } from "@fineants/demolition";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import styled from "styled-components";
+import useSignInMutation from "../api/queries/useSignInMutation";
 import AuthPageHeader from "./AuthPageHeader";
 import SocialLoginButton from "./SocialLoginButton";
 
@@ -21,7 +22,7 @@ export default function SignInForm() {
 
   const router = useRouter();
 
-  // const { mutate: signInMutate } = useSignInMutation();
+  const { mutate: signInMutate } = useSignInMutation();
 
   const {
     value: email,
@@ -38,7 +39,7 @@ export default function SignInForm() {
 
   const onSignInSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // signInMutate({ email, password });
+    signInMutate({ email, password });
   };
 
   const isAllFieldsFilled = !!email && !emailError && !!password;
