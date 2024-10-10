@@ -1,5 +1,5 @@
 import Routes from "@/constants/Routes";
-import { BASE_API_URL } from "@/constants/config";
+import { BASE_API_URL, CLIENT_URL } from "@/constants/config";
 import { HTTPSTATUS } from "./types";
 
 type FetcherOptions = RequestInit & {
@@ -14,7 +14,10 @@ type FetcherResponse<T> = {
 };
 
 const handleError = async (response: Response) => {
-  if (response.status === HTTPSTATUS.unAuthorized) {
+  if (
+    response.status === HTTPSTATUS.unAuthorized &&
+    typeof window !== "undefined"
+  ) {
     localStorage.removeItem("user");
     window.location.href = Routes.SIGNIN;
   }
@@ -125,6 +128,11 @@ const createFetcher = (
 };
 
 export const fetcher = createFetcher(`${BASE_API_URL}/api`, {
+  headers: { "Content-Type": "application/json" },
+  credentials: "include",
+});
+
+export const fetcherAPIRoutes = createFetcher(`${CLIENT_URL}/api`, {
   headers: { "Content-Type": "application/json" },
   credentials: "include",
 });
