@@ -1,3 +1,4 @@
+import { UserProvider } from "@/features/user/context/UserContext";
 import GlobalStyles from "@/styles/GlobalStyles";
 import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -64,12 +65,14 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppCacheProvider>
-        <main className={ibmPlexSansKR.className}>
-          <GlobalStyles />
-          <Component {...pageProps} class />
-        </main>
-      </AppCacheProvider>
+      <UserProvider>
+        <AppCacheProvider>
+          <main className={ibmPlexSansKR.className}>
+            <GlobalStyles />
+            <Component {...pageProps} class />
+          </main>
+        </AppCacheProvider>
+      </UserProvider>
     </QueryClientProvider>
   );
 }

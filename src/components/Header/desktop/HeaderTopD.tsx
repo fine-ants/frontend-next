@@ -7,12 +7,9 @@ import SearchBarD from "@/components/SearchBar/desktop/SearchBarD";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 
 export default function HeaderTopD() {
-  const router = useRouter();
-
   // const { user } = useContext(UserContext);
 
   const navItems = [
@@ -23,14 +20,6 @@ export default function HeaderTopD() {
     },
     { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
-
-  const moveToSignInPage = () => {
-    router.push(Routes.SIGNIN);
-  };
-
-  const moveToSignUpPage = () => {
-    router.push(Routes.SIGNUP);
-  };
 
   return (
     <StyledHeaderTopD>
@@ -65,12 +54,16 @@ export default function HeaderTopD() {
         )} */}
 
         <ButtonWrapper>
-          <TextButton size="h32" color="white" onClick={moveToSignInPage}>
-            로그인
-          </TextButton>
-          <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
-            회원가입
-          </Button>
+          <Link href={Routes.SIGNIN}>
+            <TextButton size="h32" color="white">
+              로그인
+            </TextButton>
+          </Link>
+          <Link href={Routes.SIGNUP}>
+            <Button variant="primary" size="h32">
+              회원가입
+            </Button>
+          </Link>
         </ButtonWrapper>
       </HeaderRight>
     </StyledHeaderTopD>

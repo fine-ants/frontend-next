@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run open-browser && next dev",
+    "dev": "npm run open-browser && next dev --experimental-https",
     "open-browser": "node open-browser.js",
     "build": "next build",
     "start": "next start",
