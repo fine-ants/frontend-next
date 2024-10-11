@@ -3,14 +3,30 @@ import { BASE_API_URL, CLIENT_URL } from "@/constants/config";
 import { HTTPSTATUS } from "./types";
 
 type FetcherOptions = RequestInit & {
-  next?: {
-    revalidate?: number;
-    noStore?: boolean;
-  };
+  headers?: HeadersInit;
 };
 
 type FetcherResponse<T> = {
   data: T;
+  cookies: {
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+  };
+};
+
+const getCookies = (response: Response) => {
+  const setCookieHeader = response.headers.get("set-cookie");
+
+  const cookies = setCookieHeader?.split(", ") || [];
+
+  const accessToken = cookies.find((cookie) =>
+    cookie.startsWith("accessToken")
+  );
+  const refreshToken = cookies.find((cookie) =>
+    cookie.startsWith("refreshToken")
+  );
+
+  return { accessToken, refreshToken };
 };
 
 const handleError = async (response: Response) => {
@@ -38,7 +54,6 @@ const requestWithoutData = async <T>(
       ...(options.headers || {}),
     },
   };
-
   const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
@@ -46,14 +61,15 @@ const requestWithoutData = async <T>(
   }
 
   const json = await response.json();
-  return { data: json };
+
+  return { data: json, cookies: getCookies(response) };
 };
 
 // 데이터를 받는 요청 (POST, PUT, PATCH)
 const requestWithData = async <T>(
   url: string,
   method: string,
-  data?: {}, // data가 선택적이도록 수정
+  data?: {},
   options?: FetcherOptions
 ): Promise<FetcherResponse<T>> => {
   const fetchOptions: FetcherOptions = {
@@ -63,7 +79,7 @@ const requestWithData = async <T>(
       "Content-Type": "application/json",
       ...(options?.headers || {}),
     },
-    ...(data ? { body: JSON.stringify(data) } : {}), // data가 있을 때만 body 추가
+    ...(data ? { body: JSON.stringify(data) } : {}),
   };
 
   const response = await fetch(url, fetchOptions);
@@ -73,7 +89,8 @@ const requestWithData = async <T>(
   }
 
   const json = await response.json();
-  return { data: json };
+
+  return { data: json, cookies: getCookies(response) };
 };
 
 const createFetcher = (
@@ -99,7 +116,7 @@ const createFetcher = (
       }),
     post: <T>(
       url: string,
-      data?: {}, // data를 선택적으로 받도록 수정
+      data?: {},
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "POST", data, {
@@ -127,17 +144,19 @@ const createFetcher = (
   };
 };
 
-export const fetcher = createFetcher(`${BASE_API_URL}/api`, {
-  headers: { "Content-Type": "application/json" },
+const fetcherBaseURL =
+  process.env.NODE_ENV === "development"
+    ? `${CLIENT_URL}/api/proxy`
+    : `${BASE_API_URL}/api`;
+
+export const fetcher = createFetcher(fetcherBaseURL, {
   credentials: "include",
 });
 
-export const fetcherAPIRoutes = createFetcher(`${CLIENT_URL}/api`, {
-  headers: { "Content-Type": "application/json" },
+export const proxyFetcher = createFetcher(`${BASE_API_URL}/api`, {
   credentials: "include",
 });
 
 export const fetcherWithoutCredentials = createFetcher(`${BASE_API_URL}/api`, {
-  headers: { "Content-Type": "application/json" },
   credentials: "omit",
 });
