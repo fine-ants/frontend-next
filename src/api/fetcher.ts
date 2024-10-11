@@ -69,7 +69,7 @@ const requestWithoutData = async <T>(
 const requestWithData = async <T>(
   url: string,
   method: string,
-  data?: {},
+  data?: Record<string, unknown>,
   options?: FetcherOptions
 ): Promise<FetcherResponse<T>> => {
   const fetchOptions: FetcherOptions = {
@@ -116,7 +116,7 @@ const createFetcher = (
       }),
     post: <T>(
       url: string,
-      data?: {},
+      data?: Record<string, unknown>,
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "POST", data, {
@@ -125,7 +125,7 @@ const createFetcher = (
       }),
     put: <T>(
       url: string,
-      data: {},
+      data: Record<string, unknown>,
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "PUT", data, {
@@ -134,7 +134,7 @@ const createFetcher = (
       }),
     patch: <T>(
       url: string,
-      data: {},
+      data: Record<string, unknown>,
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithData<T>(`${baseURL}${url}`, "PATCH", data, {
