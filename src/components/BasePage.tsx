@@ -3,6 +3,7 @@ import {
   MAIN_FOOTER_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_D,
   MAIN_HEADER_TOTAL_HEIGHT_M,
+  TV_TICKER_TAPE_WIDGET_HEIGHT,
 } from "@/constants/styleConstants";
 import useDevice from "@/hooks/useDevice";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
@@ -52,7 +53,8 @@ const Main = styled.main<{ $isMobile: boolean }>`
       ${({ $isMobile }) =>
         $isMobile
           ? `${MAIN_HEADER_TOTAL_HEIGHT_M}px`
-          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px`} - ${MAIN_FOOTER_HEIGHT_D}px
+          : `${MAIN_HEADER_TOTAL_HEIGHT_D}px + ${TV_TICKER_TAPE_WIDGET_HEIGHT}px`} -
+      ${MAIN_FOOTER_HEIGHT_D}px
   );
 
   padding-bottom: 48px;
