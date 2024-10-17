@@ -1,5 +1,5 @@
+import designSystem from "@/styles/designSystem";
 import { Skeleton } from "@mui/material";
-import designSystem from "@styles/designSystem";
 import styled from "styled-components";
 
 export function TallLegendSkeleton() {
