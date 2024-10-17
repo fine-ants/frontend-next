@@ -1,3 +1,4 @@
+import Layout from "@/components/Layout";
 import { UserProvider } from "@/features/user/context/UserContext";
 import GlobalStyles from "@/styles/GlobalStyles";
 import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
@@ -67,10 +68,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <AppCacheProvider>
-          <main className={ibmPlexSansKR.className}>
-            <GlobalStyles />
-            <Component {...pageProps} class />
-          </main>
+          <Layout>
+            <main className={ibmPlexSansKR.className}>
+              <GlobalStyles />
+              <Component {...pageProps} class />
+            </main>
+          </Layout>
         </AppCacheProvider>
       </UserProvider>
     </QueryClientProvider>

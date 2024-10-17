@@ -1,5 +1,11 @@
 import { Menu, MenuItem, MenuProps, SxProps } from "@mui/material";
-import { ReactNode, SyntheticEvent, useMemo, useState } from "react";
+import {
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 
 type DropdownMenuProps = {
   sx?: SxProps;
@@ -21,9 +27,9 @@ export function useDropdown() {
     setAnchorElement(event.currentTarget);
   };
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     setAnchorElement(null);
-  };
+  }, []);
 
   const DropdownMenu = useMemo(() => {
     return function DropdownMenuComponent({

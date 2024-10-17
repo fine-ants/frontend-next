@@ -6,17 +6,19 @@ import { PortfoliosDropdown } from "@/components/PortfoliosDropdown/PortfoliosDr
 import SearchBarD from "@/components/SearchBar/desktop/SearchBarD";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
+import UserControls from "@/features/user/components/desktop/UserControls";
+import { UserContext } from "@/features/user/context/UserContext";
 import Link from "next/link";
+import { useContext } from "react";
 import styled from "styled-components";
 
 export default function HeaderTopD() {
-  // const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const navItems = [
     {
       name: "Watchlists",
-      to: Routes.SIGNIN,
-      // to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
+      to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
     { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
@@ -24,8 +26,8 @@ export default function HeaderTopD() {
   return (
     <StyledHeaderTopD>
       <HeaderLeft>
-        {/* <StyledBrandIdentityLink to={user ? Routes.DASHBOARD : Routes.LANDING}> */}
-        <StyledBrandIdentityLink href={Routes.LANDING}>
+        <StyledBrandIdentityLink
+          href={user ? Routes.DASHBOARD : Routes.LANDING}>
           <img src={BIImage.src} alt="FineAnts" />
         </StyledBrandIdentityLink>
         <NavBar>
@@ -40,31 +42,22 @@ export default function HeaderTopD() {
       <HeaderRight>
         <SearchBarD sx={{ width: "328px" }} />
 
-        {/* {user ? (
-          <UserControls user={user} />
+        {user ? (
+          <UserControls />
         ) : (
           <ButtonWrapper>
-            <TextButton size="h32" color="white" onClick={moveToSignInPage}>
-              로그인
-            </TextButton>
-            <Button variant="primary" size="h32" onClick={moveToSignUpPage}>
-              회원가입
-            </Button>
+            <Link href={Routes.SIGNIN}>
+              <TextButton size="h32" color="white">
+                로그인
+              </TextButton>
+            </Link>
+            <Link href={Routes.SIGNUP}>
+              <Button variant="primary" size="h32">
+                회원가입
+              </Button>
+            </Link>
           </ButtonWrapper>
-        )} */}
-
-        <ButtonWrapper>
-          <Link href={Routes.SIGNIN}>
-            <TextButton size="h32" color="white">
-              로그인
-            </TextButton>
-          </Link>
-          <Link href={Routes.SIGNUP}>
-            <Button variant="primary" size="h32">
-              회원가입
-            </Button>
-          </Link>
-        </ButtonWrapper>
+        )}
       </HeaderRight>
     </StyledHeaderTopD>
   );

@@ -42,8 +42,7 @@ export const postSignIn = async (body: SignInCredentials) => {
 };
 
 export const postSignOut = async () => {
-  const res =
-    await fetcherWithoutCredentials.post<Response<null>>("/auth/logout");
+  const res = await fetcher.post<Response<null>>("/auth/logout");
   return res.data;
 };
 
