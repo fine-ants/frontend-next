@@ -43,7 +43,7 @@ export default function HeaderTopD() {
         <SearchBarD sx={{ width: "328px" }} />
 
         {user ? (
-          <UserControls user={user} />
+          <UserControls />
         ) : (
           <ButtonWrapper>
             <Link href={Routes.SIGNIN}>

@@ -17,7 +17,7 @@ export default function DashboardPortfolioWeight() {
   const {
     state: isPortfolioAddDialogOpen,
     setTrue: onPortfolioAddDialogOpen,
-    setFalse: onPortfolioAddDialogClose,
+    // setFalse: onPortfolioAddDialogClose,
   } = useBoolean();
 
   const coloredPieChart = pieChart.map((item, index) => ({
