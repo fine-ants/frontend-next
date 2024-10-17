@@ -14,7 +14,6 @@ import portfolioImageM3 from "@/assets/images/portfolioM3.svg";
 import BasePage from "@/components/BasePage";
 import Button from "@/components/Buttons/Button";
 import { TextButton } from "@/components/Buttons/TextButton";
-import Header from "@/components/Header/Header";
 import Routes from "@/constants/Routes";
 import {
   MAIN_HEADER_TOTAL_HEIGHT_D,
@@ -42,7 +41,6 @@ export default function LandingPage() {
 
   return (
     <>
-      <Header />
       <BasePage>
         <LandingTopBG $isMobile={isMobile}>
           <Image
