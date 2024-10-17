@@ -13,7 +13,6 @@ import EmptyPortfolioMessage from "./components/PortfolioWeightPieChart/EmptyPor
 export default function DashboardPortfolioWeight() {
   const { isMobile } = useResponsiveLayout();
   const { data: pieChart } = useDashboardPieChartQuery();
-  console.log(pieChart);
 
   const {
     state: isPortfolioAddDialogOpen,

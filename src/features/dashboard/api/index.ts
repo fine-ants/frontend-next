@@ -19,6 +19,5 @@ export const getPortfoliosWeightPieChart = async () => {
 
 export const getTotalValuationLineChart = async () => {
   const res = await fetcher.get<Response<LineData[]>>("/dashboard/lineChart");
-  console.log(res);
   return res.data;
 };

@@ -22,7 +22,6 @@ export default function UserDropdown() {
   };
 
   const onSignOut = () => {
-    console.log("로그아웃");
     signOutMutate();
   };
 

@@ -41,10 +41,6 @@ export default async function handler(
           "localhost"
         );
 
-        console.log(updatedAccessToken);
-        console.log(updatedRefreshToken);
-        console.log("token");
-
         res.setHeader("Set-Cookie", [updatedAccessToken, updatedRefreshToken]);
       }
 
