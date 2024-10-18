@@ -41,6 +41,7 @@ const DashboardOverview = dynamic(
   () => import("@/features/dashboard/DashboardOverview"),
   {
     ssr: false,
+    loading: () => <DashboardOverviewSkeleton />,
   }
 );
 
@@ -48,6 +49,7 @@ const DashboardPortfolioWeight = dynamic(
   () => import("@/features/dashboard/DashboardPortfolioWeight"),
   {
     ssr: false,
+    loading: () => <DashboardPieChartSkeleton />,
   }
 );
 
@@ -55,6 +57,7 @@ const DashboardTotalValuationTrend = dynamic(
   () => import("@/features/dashboard/DashboardTotalValuationTrend"),
   {
     ssr: false,
+    loading: () => <DashboardLineChartSkeleton />,
   }
 );
 
