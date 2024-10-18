@@ -6,5 +6,5 @@ export const ErrorText = styled(FormHelperText)`
   margin: 0;
   position: absolute;
   ${designSystem.font.body4};
-  color: ${designSystem.color.state.red500};
+  color: ${designSystem.color.state.red500} !important;
 `;

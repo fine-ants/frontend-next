@@ -66,24 +66,21 @@ export function TextField({
           )
         }
         endAdornment={
-          endAdornment ? (
-            <InputAdornment position="end">{endAdornment}</InputAdornment>
-          ) : (
-            isFocused && (
-              <InputAdornment position="end">
-                <IconButton
-                  icon="close"
-                  size="h24"
-                  iconColor="custom"
-                  customColor={{
-                    color: "gray600",
-                    hoverColor: "gray50",
-                  }}
-                  onClick={clearValue}
-                />
-              </InputAdornment>
-            )
-          )
+          <InputAdornment position="end">{endAdornment}</InputAdornment> ??
+          (isFocused && (
+            <InputAdornment position="end">
+              <IconButton
+                icon="close"
+                size="h24"
+                iconColor="custom"
+                customColor={{
+                  color: "gray600",
+                  hoverColor: "gray50",
+                }}
+                onClick={clearValue}
+              />
+            </InputAdornment>
+          ))
         }
       />
       {isError && errorText && <ErrorText>{errorText}</ErrorText>}
