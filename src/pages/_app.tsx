@@ -1,8 +1,8 @@
 import Layout from "@/components/Layout";
 import { UserProvider } from "@/features/user/context/UserContext";
 import GlobalStyles from "@/styles/GlobalStyles";
-import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import localFont from "next/font/local";
 
@@ -67,15 +67,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <AppCacheProvider>
-          <Layout>
-            <main className={ibmPlexSansKR.className}>
-              <GlobalStyles />
-              <Component {...pageProps} class />
-            </main>
-          </Layout>
-        </AppCacheProvider>
+        <Layout>
+          <main className={ibmPlexSansKR.className}>
+            <GlobalStyles />
+            <Component {...pageProps} class />
+          </main>
+        </Layout>
       </UserProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

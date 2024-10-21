@@ -80,6 +80,7 @@ export function TextField({
                     hoverColor: "gray50",
                   }}
                   onClick={clearValue}
+                  tabIndex={-1}
                 />
               </InputAdornment>
             )

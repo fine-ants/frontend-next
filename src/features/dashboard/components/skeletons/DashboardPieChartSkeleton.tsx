@@ -1,3 +1,5 @@
+import { TallLegendSkeleton } from "@/components/Legend/skeletons/TallLegendSkeleton";
+import { PieChartSkeleton } from "@/components/PieChart/skeletons/PieChartSkeleton";
 import { Skeleton } from "@mui/material";
 import styled from "styled-components";
 
@@ -7,9 +9,9 @@ export default function DashboardPieChartSkeleton() {
       <Skeleton variant="rounded" width="100%" height={29} />
       <Wrapper>
         <PieChartSkeletonWrapper>
-          {/* <PieChartSkeleton size={288} innerSize={160} /> */}
+          <PieChartSkeleton size={288} innerSize={160} />
         </PieChartSkeletonWrapper>
-        {/* <TallLegendSkeleton /> */}
+        <TallLegendSkeleton />
       </Wrapper>
     </StyledDashboardPieChartSkeleton>
   );
