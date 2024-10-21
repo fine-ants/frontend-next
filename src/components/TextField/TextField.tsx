@@ -3,6 +3,7 @@ import { useBoolean } from "@fineants/demolition";
 import { InputAdornment } from "@mui/material";
 import { ChangeEvent, HTMLInputTypeAttribute, ReactNode } from "react";
 import styled from "styled-components";
+import { IconButton } from "../Buttons/IconButton";
 import { BaseTextField, Size } from "./BaseTextField";
 import { ErrorText } from "./ErrorText";
 
@@ -68,7 +69,21 @@ export function TextField({
           endAdornment ? (
             <InputAdornment position="end">{endAdornment}</InputAdornment>
           ) : (
-            <></>
+            isFocused && (
+              <InputAdornment position="end">
+                <IconButton
+                  icon="close"
+                  size="h24"
+                  iconColor="custom"
+                  customColor={{
+                    color: "gray600",
+                    hoverColor: "gray50",
+                  }}
+                  onClick={clearValue}
+                  tabIndex={-1}
+                />
+              </InputAdornment>
+            )
           )
         }
       />
