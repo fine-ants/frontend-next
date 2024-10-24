@@ -16,13 +16,13 @@ const watcher = chokidar.watch(watchPath, {
 
 // 준비 완료
 watcher.on("ready", () => {
-  console.log("Generator : Watching for file changes...");
+  console.log("Generator: Watching for file changes...");
 });
 
 // 파일 변경
 watcher.on("change", (filePath: string) => {
   if (filePath.endsWith(path.join("api", "index.ts"))) {
-    console.log(`Generator : File changed: ${filePath}`);
+    console.log(`Generator: File changed: ${filePath}`);
     generateApiRouter(filePath);
   }
 });
@@ -30,7 +30,7 @@ watcher.on("change", (filePath: string) => {
 // 파일 추가
 watcher.on("add", (filePath: string) => {
   if (filePath.endsWith(path.join("api", "index.ts"))) {
-    console.log(`Generator : File added: ${filePath}`);
+    console.log(`Generator: File added: ${filePath}`);
     generateApiRouter(filePath);
   }
 });
