@@ -1,25 +1,6 @@
 import { fetcher, fetcherWithoutCredentials } from "@/api/fetcher";
 import { Response } from "@/api/types";
-
-export type SignInCredentials = {
-  email: string;
-  password: string;
-};
-
-export type SignInData = {
-  jwt: {
-    accessToken: string;
-    refreshToken: string;
-  };
-};
-
-export type SignUpData = {
-  [key: string]: string | File | null;
-  nickname: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-};
+import { SignInCredentials, SignInData } from "./types";
 
 export type OAuthProvider = "google" | "naver" | "kakao";
 
@@ -77,9 +58,12 @@ export const postEmailCodeVerification = async ({
   email: string;
   code: string;
 }) => {
-  const res = await fetcherWithoutCredentials.post("/auth/signup/verifyCode", {
-    email,
-    code,
-  });
+  const res = await fetcherWithoutCredentials.post<Response<null>>(
+    "/auth/signup/verifyCode",
+    {
+      email,
+      code,
+    }
+  );
   return res.data;
 };
