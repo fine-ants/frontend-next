@@ -28,7 +28,7 @@ const createApiFiles = (methodDetails: MethodDetails[]) => {
 
     const filePath = path.join("./src/pages/api/proxy", ...urlParts) + ".ts";
 
-    // 파일 디렉토리 생성 (없을 경우)
+    // 파일 디렉토리 없을 경우 생성
     const dirPath = path.dirname(filePath);
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
