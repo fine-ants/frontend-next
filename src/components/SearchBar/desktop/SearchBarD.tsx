@@ -1,8 +1,8 @@
 import { IconButton } from "@/components/Buttons/IconButton";
 import { Icon } from "@/components/Icon";
 import Routes from "@/constants/Routes";
-import { StockSearchItem } from "@/features/stock/api";
 import useStockSearchQuery from "@/features/stock/api/queries/useStockSearchQuery";
+import { StockSearchItem } from "@/features/stock/api/types";
 import designSystem from "@/styles/designSystem";
 import { useBoolean, useDebounce } from "@fineants/demolition";
 import { Autocomplete, SxProps, TextField } from "@mui/material";

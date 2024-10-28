@@ -1,4 +1,4 @@
-import { StockSearchItem } from "@/features/stock/api";
+import { StockSearchItem } from "@/features/stock/api/types";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
 import { HTMLAttributes } from "react";

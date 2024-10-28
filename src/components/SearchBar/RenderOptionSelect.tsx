@@ -1,4 +1,4 @@
-import { StockSearchItem } from "@/features/stock/api";
+import { StockSearchItem } from "@/features/stock/api/types";
 import designSystem from "@/styles/designSystem";
 import { HTMLAttributes } from "react";
 import styled from "styled-components";
