@@ -16,8 +16,6 @@ import styled from "styled-components";
 export default function HeaderTopD() {
   const { user } = useContext(UserContext);
 
-  console.log(user);
-
   const navItems = [
     {
       name: "Watchlists",

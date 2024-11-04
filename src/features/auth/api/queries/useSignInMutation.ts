@@ -18,7 +18,6 @@ export default function useSignInMutation() {
           data: { user },
         } = await getUser();
 
-        console.log(user);
         onGetUser(user);
 
         router.push(Routes.DASHBOARD);
