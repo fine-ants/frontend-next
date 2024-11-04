@@ -6,6 +6,7 @@ import Routes from "@/constants/Routes";
 import useSignOutMutation from "@/features/auth/api/queries/useSignOutMutation";
 import designSystem from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import styled from "styled-components";
@@ -55,7 +56,12 @@ export default function UserDrawer() {
         <ul>
           <ProfileItem>
             {user?.profileUrl ? (
-              <ProfileImage src={user.profileUrl} alt={user.nickname} />
+              <ProfileImage
+                width={64}
+                height={64}
+                src={user.profileUrl}
+                alt={user.nickname}
+              />
             ) : (
               <Icon icon="user" size={32} color={"gray600"} />
             )}
@@ -87,9 +93,7 @@ const ProfileItem = styled.li`
   padding: 0 16px;
 `;
 
-const ProfileImage = styled.img`
-  width: 64px;
-  height: 64px;
+const ProfileImage = styled(Image)`
   border-radius: 50%;
 `;
 

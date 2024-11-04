@@ -3,6 +3,7 @@ import Button from "@/components/Buttons/Button";
 import { Icon } from "@/components/Icon";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
+import Image from "next/image";
 import styled from "styled-components";
 
 type Props = {
@@ -16,7 +17,12 @@ export default function EmptyPortfolioMessage({
 
   return (
     <StyledEmptyPortfolioMessage $isMobile={isMobile}>
-      <img width={64} src={emptyFolder} alt="비어 있는 폴더 이미지" />
+      <Image
+        width={80}
+        height={80}
+        src={emptyFolder}
+        alt="비어 있는 폴더 이미지"
+      />
 
       <StyledContentWrapper $isMobile={isMobile}>
         <h1>포트폴리오를 추가하세요</h1>

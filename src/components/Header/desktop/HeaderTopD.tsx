@@ -8,6 +8,7 @@ import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
 import UserControls from "@/features/user/components/desktop/UserControls";
 import { UserContext } from "@/features/user/context/UserContext";
+import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import styled from "styled-components";
@@ -28,7 +29,7 @@ export default function HeaderTopD() {
       <HeaderLeft>
         <StyledBrandIdentityLink
           href={user ? Routes.DASHBOARD : Routes.LANDING}>
-          <img src={BIImage.src} alt="FineAnts" />
+          <Image width={127} height={24} src={BIImage.src} alt="FineAnts" />
         </StyledBrandIdentityLink>
         <NavBar>
           <NavBar.NavItem>
@@ -94,11 +95,6 @@ const StyledBrandIdentityLink = styled(Link)`
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
-
-  > img {
-    width: 127px;
-    height: 24px;
-  }
 `;
 
 const ButtonWrapper = styled.div`

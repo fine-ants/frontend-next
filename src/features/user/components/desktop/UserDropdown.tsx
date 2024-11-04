@@ -4,6 +4,7 @@ import useSignOutMutation from "@/features/auth/api/queries/useSignOutMutation";
 import { useDropdown } from "@/hooks/useDropdown";
 import designSystem, { parseFontString } from "@/styles/designSystem";
 import { Divider } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { MouseEvent, useContext } from "react";
 import styled from "styled-components";
@@ -40,9 +41,10 @@ export default function UserDropdown() {
           <DropdownItem sx={dropdownItemSx}>
             {user?.profileUrl ? (
               <ProfileImage
+                width={48}
+                height={48}
                 src={user.profileUrl}
                 alt={user.nickname}
-                $size={48}
               />
             ) : (
               <Icon icon="user" size={48} color="gray200" />
@@ -100,9 +102,7 @@ const dropdownItemSx = {
   borderRadius: "4px",
 };
 
-const ProfileImage = styled.img<{ $size: number }>`
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
+const ProfileImage = styled(Image)`
   border-radius: 50%;
 `;
 

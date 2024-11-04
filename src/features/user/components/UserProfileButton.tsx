@@ -1,6 +1,7 @@
 import Button from "@/components/Buttons/Button";
 import { Icon } from "@/components/Icon";
 import designSystem from "@/styles/designSystem";
+import Image from "next/image";
 import { MouseEvent, useContext } from "react";
 import styled from "styled-components";
 import { UserContext } from "../context/UserContext";
@@ -22,7 +23,12 @@ export default function UserProfileButton({ isOpen, onClick }: Props) {
       aria-label="사용자 프로필 버튼">
       <ProfileImageWrapper>
         {user?.profileUrl ? (
-          <ProfileImage src={user.profileUrl} alt={user.nickname} $size={32} />
+          <ProfileImage
+            width={32}
+            height={32}
+            src={user.profileUrl}
+            alt={user.nickname}
+          />
         ) : (
           <Icon icon="user" size={32} color={isOpen ? "gray400" : "gray600"} />
         )}
@@ -59,8 +65,6 @@ const ProfileImageWrapper = styled.div`
   background-color: ${designSystem.color.neutral.gray800};
 `;
 
-const ProfileImage = styled.img<{ $size: number }>`
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
+const ProfileImage = styled(Image)`
   border-radius: 50%;
 `;

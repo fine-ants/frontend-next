@@ -6,6 +6,7 @@ import {
 } from "@/constants/styleConstants";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import styled from "styled-components";
@@ -18,7 +19,12 @@ export default function Footer() {
 
   return (
     <StyledFooter $isMobile={isMobile} $isDesktop={isDesktop}>
-      <FooterLogo src={BIImage.src} alt="BIImage" $isMobile={isMobile} />
+      <Image
+        width={isMobile ? 92 : 127}
+        height={isMobile ? 16 : 24}
+        src={BIImage.src}
+        alt="BIImage"
+      />
       <Copyright>FineAnts Ⓒ All rights reserved.</Copyright>
       {/* 추후 추가예정 */}
       {/* <IconContainer>
@@ -46,11 +52,6 @@ const StyledFooter = styled.footer<{ $isMobile: boolean; $isDesktop: boolean }>`
       ? designSystem.color.neutral.gray50
       : designSystem.color.neutral.white};
   color: ${designSystem.color.neutral.gray600};
-`;
-
-const FooterLogo = styled.img<{ $isMobile: boolean }>`
-  width: ${({ $isMobile }) => ($isMobile ? "92px" : "127px")};
-  height: ${({ $isMobile }) => ($isMobile ? "16px" : "24px")};
 `;
 
 const Copyright = styled.div`

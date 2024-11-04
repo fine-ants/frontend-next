@@ -4,6 +4,7 @@ import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_M } from "@/constants/styleConstants";
 
 import { useBoolean } from "@fineants/demolition";
+import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -21,7 +22,7 @@ export default function HeaderTopM() {
           // to={user ? Routes.DASHBOARD : Routes.LANDING}
           href={Routes.LANDING}
           style={{ padding: "4px 8px" }}>
-          <LogoImage src={fineantsLogo.src} alt="FineAnts" />
+          <Image width={24} height={24} src={fineantsLogo.src} alt="FineAnts" />
         </Link>
       </HeaderCenter>
 
@@ -62,11 +63,6 @@ const HeaderCenter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const LogoImage = styled.img`
-  width: 24px;
-  height: 24px;
 `;
 
 const HeaderRight = styled.div`

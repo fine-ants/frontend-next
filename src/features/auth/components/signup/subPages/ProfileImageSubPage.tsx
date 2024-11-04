@@ -4,6 +4,7 @@ import { TextButton } from "@/components/Buttons/TextButton";
 import { Icon } from "@/components/Icon";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import { useImageInput } from "@fineants/demolition";
+import Image from "next/image";
 import styled from "styled-components";
 import { AuthOnPrevButton } from "../../AuthOnPrevButton";
 import AuthPageHeader from "../../AuthPageHeader";
@@ -70,9 +71,11 @@ export default function ProfileImageSubPage({ onPrev, onNext }: Props) {
             <CameraWrapper>
               <Icon icon="camera" color="white" size={16} />
             </CameraWrapper>
-            <Image
+            <StyledImage
               src={profileImageUrl ? profileImageUrl : defaultProfile.src}
               alt="profile"
+              layout="fill"
+              objectFit="cover"
             />
 
             <ImageInput
@@ -127,12 +130,11 @@ const Profile = styled.div`
   border-radius: 50%;
 `;
 
-const Image = styled.img`
+// Image 태그로
+const StyledImage = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   border-radius: 50%;
 `;
