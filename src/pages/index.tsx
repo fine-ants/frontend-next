@@ -106,21 +106,30 @@ export default function LandingPage() {
               자산을{isMobile && <br />} 효율적으로 관리할 수 있습니다
             </FeatureDescription>
             <PortfolioImageContainer $isMobile={isMobile}>
-              <PortfolioImage
-                src={isMobile ? portfolioImageM1.src : portfolioImageD1.src}
-                alt="portfolio1"
-                $isMobile={isMobile}
-              />
-              <PortfolioImage
-                src={isMobile ? portfolioImageM2.src : portfolioImageD2.src}
-                alt="portfolio2"
-                $isMobile={isMobile}
-              />
-              <PortfolioImage
-                src={isMobile ? portfolioImageM3.src : portfolioImageD3.src}
-                alt="portfolio3"
-                $isMobile={isMobile}
-              />
+              <PortfolioImageWrapper $isMobile={isMobile}>
+                <Image
+                  src={isMobile ? portfolioImageM1.src : portfolioImageD1.src}
+                  alt="portfolio1"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </PortfolioImageWrapper>
+              <PortfolioImageWrapper $isMobile={isMobile}>
+                <Image
+                  src={isMobile ? portfolioImageM2.src : portfolioImageD2.src}
+                  alt="portfolio2"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </PortfolioImageWrapper>
+              <PortfolioImageWrapper $isMobile={isMobile}>
+                <Image
+                  src={isMobile ? portfolioImageM3.src : portfolioImageD3.src}
+                  alt="portfolio3"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </PortfolioImageWrapper>
             </PortfolioImageContainer>
           </FeatureContainer>
 
@@ -281,11 +290,12 @@ const PortfolioImageContainer = styled.div<{ $isMobile: boolean }>`
   margin-top: ${({ $isMobile }) => ($isMobile ? "32px" : "80px")};
 `;
 
-const PortfolioImage = styled.img<{ $isMobile: boolean }>`
+const PortfolioImageWrapper = styled.div<{ $isMobile: boolean }>`
+  position: relative;
   width: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
   height: ${({ $isMobile }) => ($isMobile ? "100%" : "464px")};
   border-radius: 16px;
-  pointer-events: none;
+  overflow: hidden;
 `;
 
 const ComfortContainer = styled.div<{ $isMobile: boolean }>`

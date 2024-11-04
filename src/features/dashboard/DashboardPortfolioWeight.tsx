@@ -5,6 +5,7 @@ import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import { chartColorPalette } from "@/styles/chartColorPalette";
 import designSystem from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
+import Image from "next/image";
 import { Suspense } from "react";
 import styled from "styled-components";
 import useDashboardPieChartQuery from "./api/queries/useDashboardPieChartQuery";
@@ -40,8 +41,9 @@ export default function DashboardPortfolioWeight() {
       <Suspense fallback={<div>로딩중</div>}>
         <ChartWrapper $isMobile={isMobile}>
           {coloredPieChart.length === 0 ? (
-            <img
+            <Image
               width={isMobile ? 280 : 320}
+              height={isMobile ? 280 : 320}
               src={emptyHoldingsPieChartImg.src}
               alt="비어있는 파이차트 이미지"
             />

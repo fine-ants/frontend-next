@@ -3,6 +3,7 @@ import AuthBasePage from "@/features/auth/components/AuthBasePage";
 import { AuthOnPrevButton } from "@/features/auth/components/AuthOnPrevButton";
 import SignInForm from "@/features/auth/components/SignInForm";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
@@ -31,7 +32,7 @@ export default function SignInPage() {
               <SignInForm />
             </SignInFormContainer>
             <ImageContainer>
-              <StyledImage src={login_Image.src} alt="FineAnts 로그인 배너" />
+              <Image fill src={login_Image.src} alt="FineAnts 로그인 배너" />
             </ImageContainer>
           </>
         )}
@@ -86,15 +87,11 @@ const SignInFormContainer = styled.div`
 
 const ImageContainer = styled.div`
   width: 45%;
+  height: calc(100vh - 96px);
   position: absolute;
   right: 48px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
-`;
-
-const StyledImage = styled.img`
-  width: 100%;
-  height: calc(100vh - 96px);
 `;

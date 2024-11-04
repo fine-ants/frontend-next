@@ -5,6 +5,7 @@ import { CustomTooltip } from "@/components/Tooltips/CustomTooltip";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
 import designSystem from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -52,12 +53,12 @@ export default function SocialLoginButton({
     socialLoginButton =
       variant === "rectangle" ? (
         <RectangleButton href={href} $provider="google" $isDesktop={isDesktop}>
-          <img src={googleLogo.src} alt="구글 로고" />
+          <Image width={16} height={16} src={googleLogo.src} alt="구글 로고" />
           <p>구글 로그인</p>
         </RectangleButton>
       ) : (
         <CircleButton href={href} $provider="google">
-          <img src={googleLogo.src} alt="구글 로고" />
+          <Image width={16} height={16} src={googleLogo.src} alt="구글 로고" />
         </CircleButton>
       );
   }
@@ -66,12 +67,12 @@ export default function SocialLoginButton({
     socialLoginButton =
       variant === "rectangle" ? (
         <RectangleButton href={href} $provider="kakao" $isDesktop={isDesktop}>
-          <img src={kakaoLogo.src} alt="카카오 로고" />
+          <Image width={16} height={16} src={kakaoLogo.src} alt="카카오 로고" />
           <p>카카오 로그인</p>
         </RectangleButton>
       ) : (
         <CircleButton href={href} $provider="kakao">
-          <img src={kakaoLogo.src} alt="카카오 로고" />
+          <Image width={16} height={16} src={kakaoLogo.src} alt="카카오 로고" />
         </CircleButton>
       );
   }
@@ -80,12 +81,12 @@ export default function SocialLoginButton({
     socialLoginButton =
       variant === "rectangle" ? (
         <RectangleButton href={href} $provider="naver" $isDesktop={isDesktop}>
-          <img src={naverLogo.src} alt="네이버 로고" />
+          <Image width={16} height={16} src={naverLogo.src} alt="네이버 로고" />
           <p>네이버 로그인</p>
         </RectangleButton>
       ) : (
         <CircleButton href={href} $provider="naver">
-          <img src={naverLogo.src} alt="네이버 로고" />
+          <Image width={16} height={16} src={naverLogo.src} alt="네이버 로고" />
         </CircleButton>
       );
   }
