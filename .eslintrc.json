@@ -3,5 +3,13 @@
   "rules": {
     "no-console": "error",
     "react/no-unescaped-entities": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 }
