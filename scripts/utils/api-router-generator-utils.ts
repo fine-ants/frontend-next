@@ -34,7 +34,7 @@ const createApiFiles = (methodDetails: MethodDetails[]) => {
       .filter((part) => part !== "")
       .map((part) => (part.startsWith("${") ? `[${part.slice(2, -1)}]` : part));
 
-    const filePath = path.join("./src/pages/api/proxy", ...urlParts) + `.ts`;
+    const filePath = path.join("./src/pages/api/proxy", ...urlParts) + ".ts";
 
     // 파일 디렉토리 없을 경우 생성
     const dirPath = path.dirname(filePath);
@@ -54,7 +54,7 @@ const createApiFiles = (methodDetails: MethodDetails[]) => {
     const methodHandlers = methods
       .map((method) => {
         const hasBody = ["POST", "PUT", "PATCH"].includes(method);
-        const bodyContent = hasBody ? `, req.body` : ``;
+        const bodyContent = hasBody ? ", req.body" : "";
 
         return `
       case "${method}":
