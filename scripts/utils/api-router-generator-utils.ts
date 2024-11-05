@@ -18,9 +18,17 @@ export const generateApiRouter = (filePath: string) => {
 
 // 파일 생성 함수
 const createApiFiles = (methodDetails: MethodDetails[]) => {
-  methodDetails.forEach(({ url, httpMethod }) => {
-    if (!url || !httpMethod) return;
+  const groupedByRoute = methodDetails.reduce(
+    (acc, { url, httpMethod }) => {
+      if (!url || !httpMethod) return acc;
+      if (!acc[url]) acc[url] = [];
+      acc[url].push(httpMethod);
+      return acc;
+    },
+    {} as Record<string, string[]>
+  );
 
+  Object.entries(groupedByRoute).forEach(([url, methods]) => {
     const urlParts = url
       .split("/")
       .filter((part) => part !== "")
@@ -42,8 +50,45 @@ const createApiFiles = (methodDetails: MethodDetails[]) => {
           .join("\n")
       : "";
 
-    const hasBody = ["POST", "PUT", "PATCH"].includes(httpMethod);
-    const bodyContent = hasBody ? `, req.body` : ``;
+    // Method 별 처리
+    const methodHandlers = methods
+      .map((method) => {
+        const hasBody = ["POST", "PUT", "PATCH"].includes(method);
+        const bodyContent = hasBody ? ", req.body" : "";
+
+        return `
+      case "${method}":
+        try {
+          const { data, cookies: { accessToken, refreshToken } = {} } =
+            await proxyFetcher.${method.toLowerCase()}<Response<unknown>>(\`${url.replace(
+              /\$\{(\w+)\}/g,
+              (_, variable) => `\${${variable}}`
+            )}\`${bodyContent}, {
+              headers: {
+                Cookie: cookieString || "",
+              },
+            });
+
+          if (accessToken && refreshToken) {
+            const updatedAccessToken = replaceCookieDomain(
+              accessToken,
+              "localhost"
+            );
+            const updatedRefreshToken = replaceCookieDomain(
+              refreshToken,
+              "localhost"
+            );
+
+            res.setHeader("Set-Cookie", [updatedAccessToken, updatedRefreshToken]);
+          }
+
+          return res.status(200).json(data);
+        } catch (error) {
+          return res.status(500).json({ error: "Internal server error" });
+        }
+      `;
+      })
+      .join("\n");
 
     // 템플릿 코드
     const template = `import { proxyFetcher } from "@/api/fetcher";
@@ -51,45 +96,18 @@ import { Response } from "@/api/types";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "${httpMethod}") {
-    try {
-      const cookies = req.cookies;
-      const cookieString = Object.entries(cookies)
-        .map(([key, value]) => \`\${key}=\${value}\`)
-        .join("; ");
+  const cookies = req.cookies;
+  const cookieString = Object.entries(cookies)
+    .map(([key, value]) => \`\${key}=\${value}\`)
+    .join("; ");
 
-      ${queryExtract}
+  ${queryExtract}
 
-      const { data, cookies: { accessToken, refreshToken } = {} } =
-        await proxyFetcher.${httpMethod.toLowerCase()}<Response<unknown>>(\`${url.replace(
-          /\$\{(\w+)\}/g,
-          (_, variable) => `\${${variable}}`
-        )}\`${bodyContent}, {
-          headers: {
-            Cookie: cookieString || "",
-          },
-        });
-
-      if (accessToken && refreshToken) {
-        const updatedAccessToken = replaceCookieDomain(
-          accessToken,
-          "localhost"
-        );
-        const updatedRefreshToken = replaceCookieDomain(
-          refreshToken,
-          "localhost"
-        );
-
-        res.setHeader("Set-Cookie", [updatedAccessToken, updatedRefreshToken]);
-      }
-
-      return res.status(200).json(data);
-    } catch (error) {
-      return res.status(500).json({ error: "Internal server error" });
-    }
-  } else {
-    res.setHeader("Allow", ["${httpMethod}"]);
-    res.status(405).end(\`Method \${req.method} Not Allowed\`);
+  switch (req.method) {
+    ${methodHandlers}
+    default:
+      res.setHeader("Allow", [${methods.map((m) => `"${m}"`).join(", ")}]);
+      res.status(405).end(\`Method \${req.method} Not Allowed\`);
   }
 }
 
