@@ -6,20 +6,19 @@ import { PortfoliosDropdown } from "@/components/PortfoliosDropdown/PortfoliosDr
 import SearchBarD from "@/components/SearchBar/desktop/SearchBarD";
 import Routes from "@/constants/Routes";
 import { MAIN_HEADER_HEIGHT_D } from "@/constants/styleConstants";
+import useAuthStatusQuery from "@/features/auth/api/queries/useAuthStatusQuery";
 import UserControls from "@/features/user/components/desktop/UserControls";
-import { UserContext } from "@/features/user/context/UserContext";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
 import styled from "styled-components";
 
 export default function HeaderTopD() {
-  const { user } = useContext(UserContext);
+  const { data: isLoggedIn } = useAuthStatusQuery();
 
   const navItems = [
     {
       name: "Watchlists",
-      to: user ? Routes.WATCHLISTS : Routes.SIGNIN,
+      to: isLoggedIn ? Routes.WATCHLISTS : Routes.SIGNIN,
     },
     { name: "Indices", to: Routes.INDICES("KRX:KOSPI") },
   ];
@@ -28,7 +27,7 @@ export default function HeaderTopD() {
     <StyledHeaderTopD>
       <HeaderLeft>
         <StyledBrandIdentityLink
-          href={user ? Routes.DASHBOARD : Routes.LANDING}>
+          href={isLoggedIn ? Routes.DASHBOARD : Routes.LANDING}>
           <Image width={127} height={24} src={BIImage.src} alt="FineAnts" />
         </StyledBrandIdentityLink>
         <NavBar>
@@ -43,7 +42,7 @@ export default function HeaderTopD() {
       <HeaderRight>
         <SearchBarD sx={{ width: "328px" }} />
 
-        {user ? (
+        {isLoggedIn ? (
           <UserControls />
         ) : (
           <ButtonWrapper>
