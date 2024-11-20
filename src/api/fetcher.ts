@@ -4,6 +4,7 @@ import { HTTPSTATUS } from "./types";
 
 type FetcherOptions = RequestInit & {
   headers?: HeadersInit;
+  cookies?: Record<string, string>;
 };
 
 type FetcherResponse<T> = {
@@ -40,6 +41,23 @@ const handleError = async (response: Response) => {
   throw new Error(`HTTP error! status: ${response.status}`);
 };
 
+// 쿠키를 헤더에 추가
+const addCookiesToHeaders = (
+  headers: HeadersInit = {},
+  cookies?: Record<string, string>
+): HeadersInit => {
+  if (!cookies) return headers;
+
+  const cookieString = Object.entries(cookies)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("; ");
+
+  return {
+    ...headers,
+    Cookie: cookieString,
+  };
+};
+
 // 데이터를 받지 않는 요청 (GET, DELETE)
 const requestWithoutData = async <T>(
   url: string,
@@ -49,10 +67,13 @@ const requestWithoutData = async <T>(
   const fetchOptions: FetcherOptions = {
     ...options,
     method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
+    headers: addCookiesToHeaders(
+      {
+        "Content-Type": "application/json",
+        ...(options.headers || {}),
+      },
+      options.cookies
+    ),
   };
   const response = await fetch(url, fetchOptions);
 
@@ -75,10 +96,13 @@ const requestWithData = async <T>(
   const fetchOptions: FetcherOptions = {
     ...options,
     method,
-    headers: {
-      "Content-Type": "application/json",
-      ...(options?.headers || {}),
-    },
+    headers: addCookiesToHeaders(
+      {
+        "Content-Type": "application/json",
+        ...(options?.headers || {}),
+      },
+      options?.cookies
+    ),
     ...(data ? { body: JSON.stringify(data) } : {}),
   };
 
@@ -154,6 +178,10 @@ export const fetcher = createFetcher(fetcherBaseURL, {
 });
 
 export const proxyFetcher = createFetcher(`${BASE_API_URL}/api`, {
+  credentials: "include",
+});
+
+export const clientFetcher = createFetcher(`${CLIENT_URL}/api`, {
   credentials: "include",
 });
 
