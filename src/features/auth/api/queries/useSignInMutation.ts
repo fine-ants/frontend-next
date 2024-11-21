@@ -1,30 +1,28 @@
 import Routes from "@/constants/Routes";
-import { getUser } from "@/features/user/api";
-import { UserContext } from "@/features/user/context/UserContext";
-import { useMutation } from "@tanstack/react-query";
+import { userKeys } from "@/features/user/api/queries/queryKeys";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 import { postSignIn } from "../index";
+import { authKeys } from "./queryKeys";
 
 export default function useSignInMutation() {
   const router = useRouter();
-  const { onSignOut, onGetUser } = useContext(UserContext);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postSignIn,
     onSuccess: async () => {
       try {
-        const {
-          data: { user },
-        } = await getUser();
-
-        onGetUser(user);
-
         router.push(Routes.DASHBOARD);
+        queryClient.invalidateQueries({
+          queryKey: authKeys.authStatus.queryKey,
+        });
+        queryClient.invalidateQueries({
+          queryKey: userKeys.userInfo.queryKey,
+        });
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error("Failed to fetch user data");
-        onSignOut();
         router.push(Routes.SIGNIN);
       }
     },

@@ -1,9 +1,17 @@
 import Layout from "@/components/Layout";
-import { UserProvider } from "@/features/user/context/UserContext";
+import { getAuthStatus } from "@/features/auth/api/apiRoutes";
+import { authKeys } from "@/features/auth/api/queries/queryKeys";
+import { getUser } from "@/features/user/api";
+import { userKeys } from "@/features/user/api/queries/queryKeys";
 import GlobalStyles from "@/styles/GlobalStyles";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+  dehydrate,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import type { AppProps } from "next/app";
+import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import localFont from "next/font/local";
 
 const ibmPlexSansKR = localFont({
@@ -37,44 +45,67 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
-
-  // TODO : api 환경 설정 끝나고 toast 컴포넌트와 함께 적용하기
-  // queryCache: new QueryCache({
-  //   onError: (_, query) => {
-  //     if (query.meta?.toastErrorMessage) {
-  //       toast.error(query.meta.toastErrorMessage as string);
-  //       return;
-  //     }
-  //   },
-  // }),
-  // mutationCache: new MutationCache({
-  //   onSuccess: (_, __, ___, mutation) => {
-  //     if (mutation.meta?.toastSuccessMessage) {
-  //       toast.success(mutation.meta.toastSuccessMessage as string);
-  //       return;
-  //     }
-  //   },
-  //   onError: (_, __, ___, mutation) => {
-  //     if (mutation.meta?.toastErrorMessage) {
-  //       toast.error(mutation.meta.toastErrorMessage as string);
-  //       return;
-  //     }
-  //   },
-  // }),
+  // TODO : api 환경 설정 끝나고 toast 컴포넌트와 함께 CUD 피드백 적용하기
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <Layout>
           <main className={ibmPlexSansKR.className}>
             <GlobalStyles />
             <Component {...pageProps} class />
           </main>
         </Layout>
-      </UserProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </HydrationBoundary>
     </QueryClientProvider>
   );
 }
+
+App.getInitialProps = async (
+  appContext: AppContext
+): Promise<AppInitialProps> => {
+  const { ctx, Component } = appContext;
+
+  if (ctx.req) {
+    const cookies = ctx.req.headers.cookie || "";
+    const cookiesObject = cookies.split(";").reduce(
+      (acc, cookie) => {
+        const [key, value] = cookie.split("=").map((v) => v.trim());
+        acc[key] = value;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
+
+    const hasAccessToken = !!cookiesObject["accessToken"];
+    const hasRefreshToken = !!cookiesObject["refreshToken"];
+
+    await queryClient.prefetchQuery({
+      queryKey: authKeys.authStatus.queryKey,
+      queryFn: () => getAuthStatus(cookiesObject),
+      gcTime: Infinity,
+      staleTime: Infinity,
+    });
+
+    if (hasAccessToken && hasRefreshToken) {
+      await queryClient.prefetchQuery({
+        queryKey: userKeys.userInfo.queryKey,
+        queryFn: () => getUser(cookiesObject),
+        gcTime: Infinity,
+        staleTime: Infinity,
+      });
+    }
+  }
+
+  let pageProps = {};
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return {
+    pageProps,
+  };
+};

@@ -2,8 +2,10 @@ import { fetcher } from "@/api/fetcher";
 import { Response } from "@/api/types";
 import { User } from "./types";
 
-export const getUser = async () => {
-  const res = await fetcher.get<Response<{ user: User }>>("/profile");
+export const getUser = async (cookies?: Record<string, string>) => {
+  const res = await fetcher.get<Response<{ user: User }>>("/profile", {
+    cookies,
+  });
   return res.data;
 };
 

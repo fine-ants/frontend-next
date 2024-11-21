@@ -1,19 +1,24 @@
 import Routes from "@/constants/Routes";
-import { UserContext } from "@/features/user/context/UserContext";
-import { useMutation } from "@tanstack/react-query";
+import { userKeys } from "@/features/user/api/queries/queryKeys";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { useContext } from "react";
 import { postSignOut } from "..";
+import { authKeys } from "./queryKeys";
 
 export default function useSignOutMutation() {
   const router = useRouter();
-  const { onSignOut } = useContext(UserContext);
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: postSignOut,
     onSuccess: () => {
-      onSignOut();
       router.push(Routes.LANDING);
+      queryClient.invalidateQueries({
+        queryKey: authKeys.authStatus.queryKey,
+      });
+      queryClient.invalidateQueries({
+        queryKey: userKeys.userInfo.queryKey,
+      });
     },
     meta: {
       toastErrorMessage: "로그아웃을 다시 시도해주세요",

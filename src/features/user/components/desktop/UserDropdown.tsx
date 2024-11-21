@@ -6,13 +6,13 @@ import designSystem, { parseFontString } from "@/styles/designSystem";
 import { Divider } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, useContext } from "react";
+import { MouseEvent } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../context/UserContext";
+import useUserQuery from "../../api/queries/useUserQuery";
 import UserProfileButton from "../UserProfileButton";
 
 export default function UserDropdown() {
-  const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const { mutate: signOutMutate } = useSignOutMutation();
 
