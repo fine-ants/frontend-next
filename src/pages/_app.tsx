@@ -49,16 +49,9 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const de = dehydrate(queryClient);
-
-  console.log(
-    "Prefetched Data:",
-    queryClient.getQueryData(authKeys.authStatus.queryKey)
-  );
-  console.log("Dehydrated State:", dehydrate(queryClient));
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={de}>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <Layout>
           <main className={ibmPlexSansKR.className}>
             <GlobalStyles />
