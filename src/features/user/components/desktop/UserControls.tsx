@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import UserDropdown from "./UserDropdown";
 
-// export default function UserControls({ user }: { user: User }) {
 export default function UserControls() {
   return (
     <StyledUserControls>
