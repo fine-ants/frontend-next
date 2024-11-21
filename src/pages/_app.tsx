@@ -1,6 +1,8 @@
 import Layout from "@/components/Layout";
 import { getAuthStatus } from "@/features/auth/api/apiRoutes";
 import { authKeys } from "@/features/auth/api/queries/queryKeys";
+import { getUser } from "@/features/user/api";
+import { userKeys } from "@/features/user/api/queries/queryKeys";
 import GlobalStyles from "@/styles/GlobalStyles";
 import {
   HydrationBoundary,
@@ -47,9 +49,16 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const de = dehydrate(queryClient);
+
+  console.log(
+    "Prefetched Data:",
+    queryClient.getQueryData(authKeys.authStatus.queryKey)
+  );
+  console.log("Dehydrated State:", dehydrate(queryClient));
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={de}>
         <Layout>
           <main className={ibmPlexSansKR.className}>
             <GlobalStyles />
@@ -67,20 +76,36 @@ App.getInitialProps = async (
 ): Promise<AppInitialProps> => {
   const { ctx, Component } = appContext;
 
-  const cookies = ctx.req?.headers.cookie || "";
-  const cookiesObject = cookies.split(";").reduce(
-    (acc, cookie) => {
-      const [key, value] = cookie.split("=").map((v) => v.trim());
-      acc[key] = value;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  if (ctx.req) {
+    const cookies = ctx.req.headers.cookie || "";
+    const cookiesObject = cookies.split(";").reduce(
+      (acc, cookie) => {
+        const [key, value] = cookie.split("=").map((v) => v.trim());
+        acc[key] = value;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
 
-  await queryClient.prefetchQuery({
-    queryKey: authKeys.auth.queryKey,
-    queryFn: () => getAuthStatus(cookiesObject),
-  });
+    const hasAccessToken = !!cookiesObject["accessToken"];
+    const hasRefreshToken = !!cookiesObject["refreshToken"];
+
+    await queryClient.prefetchQuery({
+      queryKey: authKeys.authStatus.queryKey,
+      queryFn: () => getAuthStatus(cookiesObject),
+      gcTime: Infinity,
+      staleTime: Infinity,
+    });
+
+    if (hasAccessToken && hasRefreshToken) {
+      await queryClient.prefetchQuery({
+        queryKey: userKeys.userInfo.queryKey,
+        queryFn: () => getUser(cookiesObject),
+        gcTime: Infinity,
+        staleTime: Infinity,
+      });
+    }
+  }
 
   let pageProps = {};
   if (Component.getInitialProps) {
