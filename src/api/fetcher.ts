@@ -132,6 +132,7 @@ const createFetcher = (
       }),
     delete: <T>(
       url: string,
+      data?: Record<string, unknown> | FormData,
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
       requestWithoutData<T>(`${baseURL}${url}`, "DELETE", {
