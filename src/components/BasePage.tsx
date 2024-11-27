@@ -43,7 +43,10 @@ const StyledBasePage = styled.div<{ $isMobile: boolean; $isIOSPWA: boolean }>`
         ? "64px"
         : "0"};
 
-  background-color: ${designSystem.color.neutral.white};
+  background-color: ${({ $isMobile }) =>
+    $isMobile
+      ? designSystem.color.neutral.white
+      : designSystem.color.neutral.gray50};
 `;
 
 const Main = styled.main<{ $isMobile: boolean }>`
