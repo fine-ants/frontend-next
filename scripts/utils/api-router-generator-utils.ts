@@ -53,7 +53,7 @@ const createApiFiles = (methodDetails: MethodDetails[]) => {
     // Method 별 처리
     const methodHandlers = methods
       .map((method) => {
-        const hasBody = ["POST", "PUT", "PATCH"].includes(method);
+        const hasBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
         const bodyContent = hasBody ? ", req.body" : "";
 
         return `

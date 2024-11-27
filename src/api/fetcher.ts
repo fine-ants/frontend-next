@@ -58,7 +58,7 @@ const addCookiesToHeaders = (
   };
 };
 
-// 데이터를 받지 않는 요청 (GET, DELETE)
+// 데이터를 받지 않는 요청 (GET)
 const requestWithoutData = async <T>(
   url: string,
   method: string,
@@ -135,7 +135,7 @@ const createFetcher = (
       data?: Record<string, unknown> | FormData,
       options?: FetcherOptions
     ): Promise<FetcherResponse<T>> =>
-      requestWithoutData<T>(`${baseURL}${url}`, "DELETE", {
+      requestWithData<T>(`${baseURL}${url}`, "DELETE", data, {
         ...defaultOptions,
         ...options,
       }),
