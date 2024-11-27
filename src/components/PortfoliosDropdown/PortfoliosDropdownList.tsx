@@ -1,4 +1,9 @@
+import Routes from "@/constants/Routes";
+import usePortfolioNameListQuery from "@/features/portfolio/api/queries/usePortfolioNameListQuery";
 import { DropdownItemProps } from "@/hooks/useDropdown";
+import designSystem, { parseFontString } from "@/styles/designSystem";
+import { Divider } from "@mui/material";
+import Link from "next/link";
 
 import { ComponentType } from "react";
 
@@ -6,30 +11,23 @@ type Props = {
   DropdownItem: ComponentType<DropdownItemProps>;
 };
 
-export default function PortfoliosDropdownList({}: Props) {
-  // const { data: portfolioList } = usePortfolioListQuery();
-
-  // const portfolioDropdownItems = portfolioList.map(
-  //   (portfolio: PortfolioItem) => ({
-  //     name: portfolio.name,
-  //     path: Routes.PORTFOLIO(portfolio.id),
-  //   })
-  // );
+export default function PortfoliosDropdownList({ DropdownItem }: Props) {
+  const { data: portfolioList } = usePortfolioNameListQuery();
 
   return (
     <>
-      {/* {portfolioDropdownItems?.map((item) => (
-        <Link key={item.name} to={item.path}>
+      {portfolioList?.map((item) => (
+        <Link key={item.id} href={Routes.PORTFOLIO(item.id)}>
           <DropdownItem sx={portfolioDropdownItemSx}>{item.name}</DropdownItem>
         </Link>
       ))}
 
-      {portfolioDropdownItems && <Divider />} */}
+      {portfolioList && <Divider />}
     </>
   );
 }
 
-// const portfolioDropdownItemSx = {
-//   font: designSystem.font.body2,
-//   color: designSystem.color.neutral.gray900,
-// };
+const portfolioDropdownItemSx = {
+  ...parseFontString(designSystem.font.body2),
+  color: designSystem.color.neutral.gray900,
+};
