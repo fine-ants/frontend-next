@@ -1,7 +1,7 @@
 import { clientFetcher } from "@/api/fetcher";
 import { Response } from "@/api/types";
 
-export const getAuthStatus = async (cookies?: Record<string, string>) => {
+export const getAuthStatus = async (cookies?: {}) => {
   const res = await clientFetcher.get<Response<boolean>>("/authStatus", {
     cookies,
   });
