@@ -1,4 +1,5 @@
 import Routes from "@/constants/Routes";
+import PortfolioAddOrEditDialog from "@/features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
 import useUserQuery from "@/features/user/api/queries/useUserQuery";
 import { useDropdown } from "@/hooks/useDropdown";
 import designSystem, { parseFontString } from "@/styles/designSystem";
@@ -20,7 +21,11 @@ export function PortfoliosDropdown() {
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
-  const { setTrue: portfolioDialogOpen } = useBoolean();
+  const {
+    state: isPortfolioAddDialogOpen,
+    setTrue: portfolioDialogOpen,
+    setFalse: portfolioDialogClose,
+  } = useBoolean();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
@@ -63,12 +68,12 @@ export function PortfoliosDropdown() {
         </DropdownItem>
       </DropdownMenu>
 
-      {/* {isPortfolioAddDialogOpen && (
-        <PortfolioAddDialog
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddOrEditDialog
           isOpen={isPortfolioAddDialogOpen}
           onClose={portfolioDialogClose}
         />
-      )} */}
+      )}
     </>
   );
 }
