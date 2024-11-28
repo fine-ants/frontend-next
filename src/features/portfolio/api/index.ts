@@ -20,7 +20,10 @@ export const getPortfoliosNameList = async () => {
   return res.data;
 };
 
-export const getPortfolioCharts = async (portfolioId: number, cookies?: {}) => {
+export const getPortfolioCharts = async (
+  portfolioId: number,
+  cookies?: Record<string, string>
+) => {
   const res = await fetcher.get<Response<PortfolioPageCharts>>(
     `/portfolio/${portfolioId}/charts`,
     { cookies }
@@ -30,7 +33,7 @@ export const getPortfolioCharts = async (portfolioId: number, cookies?: {}) => {
 
 export const getPortfolioDetails = async (
   portfolioId: number,
-  cookies?: {}
+  cookies?: Record<string, string>
 ) => {
   const res = await fetcher.get<Response<Portfolio>>(
     `/portfolio/${portfolioId}/holdings`,
