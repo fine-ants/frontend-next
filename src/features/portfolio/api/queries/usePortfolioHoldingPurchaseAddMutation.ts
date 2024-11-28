@@ -17,7 +17,7 @@ export default function usePortfolioHoldingPurchaseAddMutation(
         queryKey: portfolioKeys.charts(portfolioId).queryKey,
       });
     },
-    onError: (error) => {
+    onError: () => {
       //TODO toast 추가 필요
       // const message = (error as AxiosError<Response<null>>).response?.data
       //   ?.message as string;

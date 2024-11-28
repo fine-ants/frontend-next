@@ -24,7 +24,7 @@ export default function usePortfolioHoldingAddMutation({
       });
       onClose();
     },
-    onError: (error) => {
+    onError: () => {
       //TODO : toast 추가
       // const message = (error as AxiosError<Response<null>>).response?.data
       //   ?.message as string;
