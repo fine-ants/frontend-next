@@ -3,7 +3,7 @@ import { chartColorPalette } from "@/styles/chartColorPalette";
 import designSystem from "@/styles/designSystem";
 import { useParams } from "next/navigation";
 import styled from "styled-components";
-import { PortfolioPageCharts } from "../../api/types";
+import usePortfolioHoldingChartsQuery from "../../api/queries/usePortfolioHoldingChartsQuery";
 import { PortfolioPageTab } from "../../types";
 import DividendBarChartContainer from "../Chart/Dividend/DividendBarChartContainer";
 import { PieChartContainer } from "../Chart/PieChart/PieChartContainer";
@@ -11,22 +11,17 @@ import SectorBarChartContainer from "../Chart/Sector/SectorBarChartContainer";
 
 type Props = {
   tab: PortfolioPageTab;
-  portfolioHoldingCharts: PortfolioPageCharts;
   onChangeTab: (tab: PortfolioPageTab) => void;
 };
 
-export default function ChartsPanel({
-  tab,
-  portfolioHoldingCharts,
-  onChangeTab,
-}: Props) {
+export default function ChartsPanel({ tab, onChangeTab }: Props) {
   const { portfolioId } = useParams();
 
   const { isMobile } = useResponsiveLayout();
 
-  // const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
-  //   Number(portfolioId)
-  // );
+  const { data: portfolioHoldingCharts } = usePortfolioHoldingChartsQuery(
+    Number(portfolioId)
+  );
 
   const { name, securitiesFirm } = portfolioHoldingCharts.portfolioDetails;
 
