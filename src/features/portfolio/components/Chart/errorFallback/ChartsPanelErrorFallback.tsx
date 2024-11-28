@@ -3,22 +3,22 @@ import designSystem from "@/styles/designSystem";
 import { FallbackProps } from "react-error-boundary";
 import styled from "styled-components";
 
-export default function MainPanelErrorFallback({
+export default function ChartsPanelErrorFallback({
   error,
   resetErrorBoundary,
 }: FallbackProps) {
   return (
-    <StyledMainPanelErrorFallback>
+    <StyledChartsPanelErrorFallback>
       <ErrorFallbackContent
         error={error}
         resetErrorBoundary={resetErrorBoundary}
       />
-    </StyledMainPanelErrorFallback>
+    </StyledChartsPanelErrorFallback>
   );
 }
 
-const StyledMainPanelErrorFallback = styled.div`
-  width: 960px;
+const StyledChartsPanelErrorFallback = styled.div`
+  width: 464px;
   height: 1060px;
   padding: 48px;
   display: flex;
@@ -26,8 +26,8 @@ const StyledMainPanelErrorFallback = styled.div`
   justify-content: center;
   align-items: center;
   gap: 24px;
-  position: relative;
   border-radius: 8px;
+  position: relative;
   background-color: ${designSystem.color.neutral.white};
   color: ${designSystem.color.neutral.gray900};
 `;
