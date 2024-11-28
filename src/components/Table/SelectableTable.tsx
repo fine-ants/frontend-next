@@ -11,6 +11,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import TablePagination from "../Pagination/TablePagination";
 import { Order } from "./types";
 import { getComparator } from "./utils/comparator";
 
