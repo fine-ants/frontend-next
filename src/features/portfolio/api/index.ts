@@ -70,7 +70,7 @@ export const deletePortfolio = async (portfolioId: number) => {
 
 export const deletePortfolios = async (portfolioIds: number[]) => {
   const res = await fetcher.delete<Response<null>>("/portfolios", {
-    data: { portfolioIds },
+    portfolioIds,
   });
   return res.data;
 };
@@ -137,7 +137,7 @@ export const deletePortfolioHoldings = async ({
 }) => {
   const res = await fetcher.delete<Response<null>>(
     `/portfolio/${portfolioId}/holdings`,
-    { data: body }
+    body
   );
   return res.data;
 };
