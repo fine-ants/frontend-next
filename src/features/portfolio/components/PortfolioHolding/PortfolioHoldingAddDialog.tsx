@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function PortfolioHoldingAddDialog(props: Props) {
-  const { isDesktop, isMobile } = useResponsiveLayout();
+  const { isDesktop } = useResponsiveLayout();
 
   return (
     <>

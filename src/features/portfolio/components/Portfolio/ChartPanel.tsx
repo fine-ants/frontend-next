@@ -4,17 +4,17 @@ import designSystem from "@/styles/designSystem";
 import { useParams } from "next/navigation";
 import styled from "styled-components";
 import usePortfolioHoldingChartsQuery from "../../api/queries/usePortfolioHoldingChartsQuery";
-import { PortfolioPageTab } from "../../types";
 import DividendBarChartContainer from "../Chart/Dividend/DividendBarChartContainer";
 import { PieChartContainer } from "../Chart/PieChart/PieChartContainer";
 import SectorBarChartContainer from "../Chart/Sector/SectorBarChartContainer";
 
-type Props = {
-  tab: PortfolioPageTab;
-  onChangeTab: (tab: PortfolioPageTab) => void;
-};
+// type Props = {
+//   tab: PortfolioPageTab;
+//   onChangeTab: (tab: PortfolioPageTab) => void;
+// };
 
-export default function ChartsPanel({ tab, onChangeTab }: Props) {
+// export default function ChartsPanel({ tab, onChangeTab }: Props) {
+export default function ChartsPanel() {
   const { portfolioId } = useParams();
 
   const { isMobile } = useResponsiveLayout();
@@ -23,7 +23,7 @@ export default function ChartsPanel({ tab, onChangeTab }: Props) {
     Number(portfolioId)
   );
 
-  const { name, securitiesFirm } = portfolioHoldingCharts.portfolioDetails;
+  // const { name, securitiesFirm } = portfolioHoldingCharts.portfolioDetails;
 
   const { pieChart, dividendChart, sectorChart } = portfolioHoldingCharts;
 

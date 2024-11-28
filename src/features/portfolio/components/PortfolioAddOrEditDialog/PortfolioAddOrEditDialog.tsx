@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function PortfolioAddOrEditDialog(props: Props) {
-  const { isMobile, isDesktop } = useResponsiveLayout();
+  const { isDesktop } = useResponsiveLayout();
 
   return (
     <>

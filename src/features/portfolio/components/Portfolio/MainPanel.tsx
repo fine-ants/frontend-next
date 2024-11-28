@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 import usePortfolioDetailsQuery from "../../api/queries/usePortfolioDetailsQuery";
 import { PortfolioDetails, PortfolioHolding } from "../../api/types";
 import { usePortfolioId } from "../../hook/usePortfolioId";
-import { PortfolioPageTab } from "../../types";
 import MainPanelD from "./desktop/MainPanelD";
 
-type Props = {
-  tab: PortfolioPageTab;
-  onChangeTab: (tab: PortfolioPageTab) => void;
-};
+// type Props = {
+//   tab: PortfolioPageTab;
+//   onChangeTab: (tab: PortfolioPageTab) => void;
+// };
 
-export default function MainPanel({ tab, onChangeTab }: Props) {
+// export default function MainPanel({ tab, onChangeTab }: Props) {
+export default function MainPanel() {
   const portfolioId = usePortfolioId();
 
-  const { isDesktop, isMobile } = useResponsiveLayout();
+  const { isDesktop } = useResponsiveLayout();
 
   const { data: portfolio } = usePortfolioDetailsQuery(Number(portfolioId));
 
