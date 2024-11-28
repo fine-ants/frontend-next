@@ -1,40 +1,17 @@
+import { AsyncBoundary } from "@/components/AsyncBoundary";
 import BasePage from "@/components/BasePage";
-import {
-  getPortfolioCharts,
-  getPortfolioDetails,
-} from "@/features/portfolio/api";
-import ChartsPanel from "@/features/portfolio/components/Portfolio/ChartPanel";
-import MainPanel from "@/features/portfolio/components/Portfolio/Mainpanel";
+import ChartsPanelErrorFallback from "@/features/portfolio/components/Chart/errorFallback/ChartsPanelErrorFallback";
+import ChartsPanelSkeleton from "@/features/portfolio/components/Portfolio/skeletons/ChartsPanelSkeleton";
+import MainPanelSkeleton from "@/features/portfolio/components/Portfolio/skeletons/MainPanelSkeleton";
+import MainPanelErrorFallback from "@/features/portfolio/components/errorFallback/MainPanelErrorFallback";
 import { usePortfolioId } from "@/features/portfolio/hook/usePortfolioId";
 import { PortfolioPageTab } from "@/features/portfolio/types";
 import useResponsiveLayout from "@/hooks/useResponsiveLayout";
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import styled from "styled-components";
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const portfolioId = context.params?.portfolioId;
-  const cookies = context.req.cookies;
-
-  const { data: portfolio } = await getPortfolioDetails(
-    Number(portfolioId),
-    cookies
-  );
-
-  const { data: portfolioHoldingCharts } = await getPortfolioCharts(
-    Number(portfolioId),
-    cookies
-  );
-
-  return { props: { portfolio, portfolioHoldingCharts } };
-};
-
-export default function PortfolioPage({
-  portfolio,
-  portfolioHoldingCharts,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function PortfolioPage() {
   const { isMobile } = useResponsiveLayout();
   const portfolioId = usePortfolioId();
 
@@ -50,27 +27,40 @@ export default function PortfolioPage({
         <PanelWrapper
           $isMobile={isMobile}
           $isVisible={isMobile ? tab === "portfolio" : true}>
-          <MainPanel
-            key={portfolioId}
-            tab={tab}
-            portfolio={portfolio}
-            onChangeTab={onChangeTab}
-          />
+          <AsyncBoundary
+            ErrorFallback={MainPanelErrorFallback}
+            SuspenseFallback={<MainPanelSkeleton />}>
+            <MainPanel key={portfolioId} tab={tab} onChangeTab={onChangeTab} />
+          </AsyncBoundary>
         </PanelWrapper>
 
         <PanelWrapper
           $isMobile={isMobile}
           $isVisible={isMobile ? tab === "chart" : true}>
-          <ChartsPanel
-            tab={tab}
-            portfolioHoldingCharts={portfolioHoldingCharts}
-            onChangeTab={onChangeTab}
-          />
+          <AsyncBoundary
+            ErrorFallback={ChartsPanelErrorFallback}
+            SuspenseFallback={<ChartsPanelSkeleton />}>
+            <ChartPanel tab={tab} onChangeTab={onChangeTab} />
+          </AsyncBoundary>
         </PanelWrapper>
       </Container>
     </BasePage>
   );
 }
+
+const MainPanel = dynamic(
+  import("@/features/portfolio/components/Portfolio/MainPanel"),
+  {
+    ssr: false,
+  }
+);
+
+const ChartPanel = dynamic(
+  import("@/features/portfolio/components/Portfolio/ChartPanel"),
+  {
+    ssr: false,
+  }
+);
 
 const Container = styled.div<{ $isMobile: boolean }>`
   width: 100%;
