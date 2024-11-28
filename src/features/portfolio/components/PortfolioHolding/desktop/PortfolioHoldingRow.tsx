@@ -245,20 +245,20 @@ const MemoizedTextCell = memo(
 
 const StyledHoldingTableRow = styled(TableRow)`
   &.Mui-selected {
-    background-color: ${({ theme: { color } }) => color.neutral.gray50};
-    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.white};
+    background-color: ${designSystem.color.neutral.gray50};
+    border-bottom: 1px solid ${designSystem.color.neutral.white};
   }
 
   &.Mui-selected:hover {
-    background-color: ${({ theme: { color } }) => color.neutral.gray100};
+    background-color: ${designSystem.color.neutral.gray100};
   }
 
   &:hover {
-    background-color: ${({ theme: { color } }) => color.neutral.gray100};
+    background-color: ${designSystem.color.neutral.gray100};
   }
 
   & > * {
-    border-bottom: 1px solid ${({ theme: { color } }) => color.neutral.gray100};
+    border-bottom: 1px solid ${designSystem.color.neutral.gray100};
   }
 `;
 
