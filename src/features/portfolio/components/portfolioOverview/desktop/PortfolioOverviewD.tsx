@@ -4,12 +4,15 @@ import Button from "@/components/Buttons/Button";
 import { Icon } from "@/components/Icon";
 import Routes from "@/constants/Routes";
 import { securitiesFirmLogos } from "@/constants/securitiesFirm";
+import usePortfolioDeleteMutation from "@/features/portfolio/api/queries/usePortfolioDeleteMutation";
 import { PortfolioDetails } from "@/features/portfolio/api/types";
+import { usePortfolioId } from "@/features/portfolio/hook/usePortfolioId";
 import designSystem from "@/styles/designSystem";
 import { thousandsDelimiter, useBoolean } from "@fineants/demolition";
-import { useRouter } from "next/router";
 import { memo } from "react";
 import styled from "styled-components";
+import PortfolioAddOrEditDialog from "../../PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
+import PortfolioDeleteConfirm from "../../PortfolioDeleteConfirm";
 import PortfolioOverviewBodyD from "./PortfolioOverviewBodyD";
 
 type Props = {
@@ -17,10 +20,9 @@ type Props = {
 };
 
 export default memo(function PortfolioOverviewD({ data }: Props) {
-  // const navigate = useNavigate();
-  const router = useRouter();
-  // const { portfolioId } = useParams();
-  // const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
+  const portfolioId = usePortfolioId();
+
+  const { mutate: portfolioDeleteMutate } = usePortfolioDeleteMutation();
 
   const { id, name, securitiesFirm, currentValuation, ...overViewData } = data;
 
@@ -36,8 +38,7 @@ export default memo(function PortfolioOverviewD({ data }: Props) {
   } = useBoolean();
 
   const onConfirmAction = () => {
-    // portfolioDeleteMutate(Number(portfolioId));
-    router.push(Routes.PORTFOLIOS);
+    portfolioDeleteMutate(Number(portfolioId));
   };
 
   return (
@@ -54,13 +55,14 @@ export default memo(function PortfolioOverviewD({ data }: Props) {
 
       <PortfolioOverviewBodyD data={overViewData} />
 
-      {/* {isDialogOpen && (
-        <PortfolioEditDialog
+      {isDialogOpen && (
+        <PortfolioAddOrEditDialog
           isOpen={isDialogOpen}
           onClose={onDialogClose}
           portfolioDetails={data}
         />
       )}
+
       {isConfirmOpen && (
         <PortfolioDeleteConfirm
           isOpen={isConfirmOpen}
@@ -68,7 +70,7 @@ export default memo(function PortfolioOverviewD({ data }: Props) {
           onClose={onConfirmAlertClose}
           onConfirm={onConfirmAction}
         />
-      )} */}
+      )}
     </StyledPortfolioOverview>
   );
 });
