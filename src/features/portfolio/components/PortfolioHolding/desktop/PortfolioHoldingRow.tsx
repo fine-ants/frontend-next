@@ -120,14 +120,14 @@ export default memo(function PortfolioHoldingRow({
   );
 });
 
-const MemoizedHoldingTableCell = memo(
-  ({
-    isRowOpen,
-    onExpandRowClick,
-  }: {
-    isRowOpen: boolean;
-    onExpandRowClick: (event: MouseEvent<HTMLButtonElement>) => void;
-  }) => (
+const MemoizedHoldingTableCell = memo(function HoldingTableCellComponent({
+  isRowOpen,
+  onExpandRowClick,
+}: {
+  isRowOpen: boolean;
+  onExpandRowClick: (event: MouseEvent<HTMLButtonElement>) => void;
+}) {
+  return (
     <HoldingTableCell
       style={{
         width: "40px",
@@ -145,17 +145,17 @@ const MemoizedHoldingTableCell = memo(
         aria-label="포트폴리오 종목 펼치기 버튼"
       />
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedCheckBoxCell = memo(
-  ({
-    isItemSelected,
-    labelId,
-  }: {
-    isItemSelected: boolean;
-    labelId: string;
-  }) => (
+const MemoizedCheckBoxCell = memo(function CheckBoxCellComponent({
+  isItemSelected,
+  labelId,
+}: {
+  isItemSelected: boolean;
+  labelId: string;
+}) {
+  return (
     <HoldingTableCell style={{ width: "32px", padding: "0" }}>
       <CheckBox
         size="h16"
@@ -167,17 +167,17 @@ const MemoizedCheckBoxCell = memo(
         }}
       />
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedCompanyInfoCell = memo(
-  ({
-    companyName,
-    tickerSymbol,
-  }: {
-    companyName: string;
-    tickerSymbol: string;
-  }) => (
+const MemoizedCompanyInfoCell = memo(function CompanyInfoCellComponent({
+  companyName,
+  tickerSymbol,
+}: {
+  companyName: string;
+  tickerSymbol: string;
+}) {
+  return (
     <HoldingTableCell style={{ width: "132px" }}>
       <Typography sx={{ fontSize: "1rem" }} component="h3">
         <Link
@@ -197,51 +197,71 @@ const MemoizedCompanyInfoCell = memo(
         {tickerSymbol}
       </Typography>
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedTableCell = memo(
-  ({
-    value,
-    width,
-    align = "right",
-  }: {
-    value: number;
-    width: string;
-    align?: "left" | "right";
-  }) => (
+const MemoizedTableCell = memo(function TableCellComponent({
+  value,
+  width,
+  align = "right",
+}: {
+  value: number;
+  width: string;
+  align?: "left" | "right";
+}) {
+  return (
     <HoldingTableCell style={{ width }} align={align}>
       <RealtimeValue value={value} />
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedTableCellWithRateBadge = memo(
-  ({ value, rate, width }: { value: number; rate: number; width: string }) => (
+const MemoizedTableCellWithRateBadge = memo(function TableCellWithRateBadge({
+  value,
+  rate,
+  width,
+}: {
+  value: number;
+  rate: number;
+  width: string;
+}) {
+  return (
     <HoldingTableCell style={{ width }} align="right">
       <RealtimeValue value={value} />
       <div>
         <RateBadge size={12} value={rate} bgColorStatus={false} />
       </div>
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedAmountCell = memo(
-  ({ value, width }: { value: number; width: string }) => (
+const MemoizedAmountCell = memo(function AmountCellComponent({
+  value,
+  width,
+}: {
+  value: number;
+  width: string;
+}) {
+  return (
     <HoldingTableCell style={{ width }} align="right">
       <Amount>{thousandsDelimiter(value)}</Amount>
     </HoldingTableCell>
-  )
-);
+  );
+});
 
-const MemoizedTextCell = memo(
-  ({ text, width }: { text: number; width: string }) => (
+const MemoizedTextCell = memo(function TextCellComponent({
+  text,
+  width,
+}: {
+  text: number;
+  width: string;
+}) {
+  return (
     <HoldingTableCell style={{ width }} align="right">
       <HoldingTypography>{text}</HoldingTypography>
     </HoldingTableCell>
-  )
-);
+  );
+});
 
 const StyledHoldingTableRow = styled(TableRow)`
   &.Mui-selected {

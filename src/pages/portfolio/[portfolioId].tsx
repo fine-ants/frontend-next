@@ -15,11 +15,12 @@ export default function PortfolioPage() {
   const { isMobile } = useResponsiveLayout();
   const portfolioId = usePortfolioId();
 
-  const [tab, setTab] = useState<PortfolioPageTab>("portfolio");
+  // const [tab, setTab] = useState<PortfolioPageTab>("portfolio");
+  const [tab] = useState<PortfolioPageTab>("portfolio");
 
-  const onChangeTab = (tab: PortfolioPageTab) => {
-    setTab(tab);
-  };
+  // const onChangeTab = (tab: PortfolioPageTab) => {
+  //   setTab(tab);
+  // };
 
   return (
     <BasePage key={portfolioId}>
@@ -30,7 +31,8 @@ export default function PortfolioPage() {
           <AsyncBoundary
             ErrorFallback={MainPanelErrorFallback}
             SuspenseFallback={<MainPanelSkeleton />}>
-            <MainPanel key={portfolioId} tab={tab} onChangeTab={onChangeTab} />
+            {/* <MainPanel key={portfolioId} tab={tab} onChangeTab={onChangeTab} /> */}
+            <MainPanel key={portfolioId} />
           </AsyncBoundary>
         </PanelWrapper>
 
@@ -40,7 +42,8 @@ export default function PortfolioPage() {
           <AsyncBoundary
             ErrorFallback={ChartsPanelErrorFallback}
             SuspenseFallback={<ChartsPanelSkeleton />}>
-            <ChartPanel tab={tab} onChangeTab={onChangeTab} />
+            {/* <ChartPanel tab={tab} onChangeTab={onChangeTab} /> */}
+            <ChartPanel />
           </AsyncBoundary>
         </PanelWrapper>
       </Container>

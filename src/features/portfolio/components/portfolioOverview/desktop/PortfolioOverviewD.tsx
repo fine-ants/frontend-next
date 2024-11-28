@@ -80,7 +80,7 @@ type HeaderProps = Pick<PortfolioDetails, "name" | "id" | "securitiesFirm"> & {
   onPortfolioEdit: () => void;
 };
 
-const Header = memo(function ({
+const Header = memo(function Header({
   name,
   id,
   securitiesFirm,
@@ -127,7 +127,7 @@ const Header = memo(function ({
   );
 });
 
-const CurrentValue = memo(function ({
+const CurrentValue = memo(function CurrentValue({
   currentValuation,
 }: Pick<PortfolioDetails, "currentValuation">) {
   return (

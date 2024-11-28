@@ -4,7 +4,6 @@ import { Icon } from "@/components/Icon";
 import ConditionalTooltip from "@/components/Tooltips/ConditionalTooltip";
 import { CustomTooltip } from "@/components/Tooltips/CustomTooltip";
 import { PortfolioDetails } from "@/features/portfolio/api/types";
-import { usePortfolioId } from "@/features/portfolio/hook/usePortfolioId";
 import designSystem from "@/styles/designSystem";
 import { thousandsDelimiter } from "@fineants/demolition";
 import { debounce } from "@mui/material";
@@ -41,7 +40,7 @@ export default memo(function PortfolioOverviewBodyD({ data }: Props) {
     annualInvestmentDividendYield,
   } = data;
 
-  const portfolioId = usePortfolioId();
+  // const portfolioId = usePortfolioId();
 
   // TODO: 알림 추가하면서 추가하기
   // const { mutate } = usePortfolioNotificationSettingsMutation(
@@ -101,7 +100,7 @@ export default memo(function PortfolioOverviewBodyD({ data }: Props) {
   );
 });
 
-const BudgetSection = memo(function ({
+const BudgetSection = memo(function BudgetSection({
   budget,
   investedAmount,
   balance,
@@ -145,7 +144,7 @@ const BudgetSection = memo(function ({
   );
 });
 
-const TargetAndLossSection = memo(function ({
+const TargetAndLossSection = memo(function TargetAndLossSection({
   targetGain,
   targetReturnRate,
   targetGainNotify,
@@ -233,7 +232,7 @@ const TargetAndLossSection = memo(function ({
   );
 });
 
-const GainAndLossSection = memo(function ({
+const GainAndLossSection = memo(function GainAndLossSection({
   totalGain,
   totalGainRate,
   dailyGain,
@@ -272,7 +271,7 @@ const GainAndLossSection = memo(function ({
   );
 });
 
-const DividendSection = memo(function ({
+const DividendSection = memo(function DividendSection({
   annualDividend,
   annualDividendYield,
   annualInvestmentDividendYield,
