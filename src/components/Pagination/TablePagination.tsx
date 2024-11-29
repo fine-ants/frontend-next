@@ -36,8 +36,7 @@ export default memo(function TablePagination({
   return (
     <>
       <StyledTablePagination
-        //TODO 왜 styled로 감싼 컴포넌트에 component props가 안되는지
-        // component="div"
+        component="div"
         count={count}
         page={page}
         rowsPerPage={rowsPerPage}
@@ -123,4 +122,6 @@ const StyledTablePagination = styled(MUITablePagination)`
     ${designSystem.font.body3};
     color: ${designSystem.color.neutral.gray600};
   }
-`;
+  // TODO Styled로 TablePagination을 컴포넌트로 만들면 component type이 없어진다..
+  // 임시로 타입 지정해서 사용 추후에 수정하기
+` as typeof MUITablePagination;
