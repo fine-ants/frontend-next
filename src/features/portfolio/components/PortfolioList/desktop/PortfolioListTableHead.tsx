@@ -61,7 +61,7 @@ const headCells: readonly HeadCell[] = [
 
 type Props = {
   order: Order;
-  orderBy: string | number | Symbol;
+  orderBy: string;
   isAllRowsSelectedInCurrentPage: boolean;
   onRequestSort: (
     event: MouseEvent<unknown>,
