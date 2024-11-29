@@ -77,11 +77,11 @@ export default function PortfolioListTableRow({
         {thousandsDelimiter(budget)}
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>{thousandsDelimiter(totalGain)}</div>
+        <span>{thousandsDelimiter(totalGain)}</span>
         <RateBadge size={16} value={totalGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
-        <div>{thousandsDelimiter(dailyGain)}</div>
+        <span>{thousandsDelimiter(dailyGain)}</span>
         <RateBadge size={16} value={dailyGainRate} bgColorStatus={false} />
       </StyledTableCell>
       <StyledTableCell align="right" sx={{ width: "170px" }}>
