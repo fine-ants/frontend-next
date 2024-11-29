@@ -37,7 +37,7 @@ export default function CheckBox({
 }
 
 const getIcon = (checkType: "check" | "indet") => {
-  return checkType === "check" ? checkIcon : indetIcon;
+  return checkType === "check" ? checkIcon.src : indetIcon.src;
 };
 
 const UncheckedIcon = styled.span<{ $size: Size }>`
@@ -66,7 +66,9 @@ const CheckedIcon = styled(UncheckedIcon)<{
   $checkType: "check" | "indet";
   $size: Size;
 }>`
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${designSystem.color.primary.blue500};
   border-color: ${designSystem.color.primary.blue500};
 
