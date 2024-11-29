@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { create } from "zustand";
+import { useShallow } from "zustand/shallow";
 
 type ZIndexState = {
   defaultZIndex: number;
@@ -29,11 +30,13 @@ export const useZIndexStore = create<ZIndexState>((set, get) => ({
 }));
 
 export const useZIndex = (isOpen: boolean = true) => {
-  const { pushStack, popStack, getCurrentZIndex } = useZIndexStore((state) => ({
-    pushStack: state.pushStack,
-    popStack: state.popStack,
-    getCurrentZIndex: state.getCurrentZIndex,
-  }));
+  const [pushStack, popStack, getCurrentZIndex] = useZIndexStore(
+    useShallow((state) => [
+      state.pushStack,
+      state.popStack,
+      state.getCurrentZIndex,
+    ])
+  );
 
   const [layoutIndex, setLayoutIndex] = useState(0);
   const zIndex = getCurrentZIndex(layoutIndex);
@@ -43,7 +46,6 @@ export const useZIndex = (isOpen: boolean = true) => {
       const index = pushStack();
       setLayoutIndex(index);
     }
-
     return () => {
       if (isOpen) {
         popStack();

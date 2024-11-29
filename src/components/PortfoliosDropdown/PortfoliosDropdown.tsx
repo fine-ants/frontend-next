@@ -1,30 +1,41 @@
 import Routes from "@/constants/Routes";
+import PortfolioAddOrEditDialog from "@/features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
+import useUserQuery from "@/features/user/api/queries/useUserQuery";
 import { useDropdown } from "@/hooks/useDropdown";
 import designSystem, { parseFontString } from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 import styled from "styled-components";
+import { AsyncBoundary } from "../AsyncBoundary";
 import { Icon } from "../Icon";
+import PortfoliosDropdownList from "./PortfoliosDropdownList";
+import PortfoliosDropdownListErrorFallback from "./errorFallback/PortfoliosDropdownListErrorFallback";
+import PortfoliosDropdownListSkeleton from "./skeletons/PortfoliosDropdownListSkeleton";
 
 export function PortfoliosDropdown() {
-  // const router = useRouter();
+  const router = useRouter();
 
-  // const { user } = useContext(UserContext);
+  const { data: user } = useUserQuery();
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
-  const { setTrue: portfolioDialogOpen } = useBoolean();
+  const {
+    state: isPortfolioAddDialogOpen,
+    setTrue: portfolioDialogOpen,
+    setFalse: portfolioDialogClose,
+  } = useBoolean();
 
   const onDropdownButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     onOpen(e);
   };
 
   const onPortfolioAddClick = () => {
-    // if (!user) {
-    //   router.push(Routes.SIGNIN);
-    //   return;
-    // }
+    if (!user) {
+      router.push(Routes.SIGNIN);
+      return;
+    }
 
     portfolioDialogOpen();
   };
@@ -40,15 +51,14 @@ export function PortfoliosDropdown() {
         />
       </DropdownButton>
       <DropdownMenu sx={dropdownMenuSx}>
-        {/* {user && (
+        {user && (
           <AsyncBoundary
             SuspenseFallback={<PortfoliosDropdownListSkeleton />}
             ErrorFallback={PortfoliosDropdownListErrorFallback}>
             <PortfoliosDropdownList DropdownItem={DropdownItem} />
           </AsyncBoundary>
-        )} */}
-        {/* <Link href={user ? Routes.PORTFOLIOS : Routes.SIGNIN}>  */}
-        <Link href={Routes.SIGNIN}>
+        )}
+        <Link href={user ? Routes.PORTFOLIOS : Routes.SIGNIN}>
           <DropdownItem sx={fixedDropdownItemSx}>
             포트폴리오로 이동
           </DropdownItem>
@@ -58,12 +68,12 @@ export function PortfoliosDropdown() {
         </DropdownItem>
       </DropdownMenu>
 
-      {/* {isPortfolioAddDialogOpen && (
-        <PortfolioAddDialog
+      {isPortfolioAddDialogOpen && (
+        <PortfolioAddOrEditDialog
           isOpen={isPortfolioAddDialogOpen}
           onClose={portfolioDialogClose}
         />
-      )} */}
+      )}
     </>
   );
 }
