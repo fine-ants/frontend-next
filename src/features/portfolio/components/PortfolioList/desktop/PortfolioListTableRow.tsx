@@ -36,7 +36,6 @@ export default function PortfolioListTableRow({
     expectedMonthlyDividend,
     numShares,
   } = row;
-  console.log(row);
   return (
     <StyledTableRow
       hover
