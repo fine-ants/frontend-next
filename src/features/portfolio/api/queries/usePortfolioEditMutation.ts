@@ -19,6 +19,9 @@ export default function usePortfolioEditMutation(
         queryKey: portfolioKeys.list.queryKey,
       });
       queryClient.invalidateQueries({
+        queryKey: portfolioKeys.nameList.queryKey,
+      });
+      queryClient.invalidateQueries({
         queryKey: portfolioKeys.charts(portfolioId).queryKey,
       });
     },

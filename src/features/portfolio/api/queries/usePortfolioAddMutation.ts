@@ -21,6 +21,9 @@ export default function usePortfolioAddMutation({ onSuccessCb }: Props) {
       queryClient.invalidateQueries({
         queryKey: portfolioKeys.list.queryKey,
       });
+      queryClient.invalidateQueries({
+        queryKey: portfolioKeys.nameList.queryKey,
+      });
 
       router.push(Routes.PORTFOLIO(data.portfolioId));
     },

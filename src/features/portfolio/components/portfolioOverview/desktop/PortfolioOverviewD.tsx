@@ -98,7 +98,7 @@ const Header = memo(function Header({
       <TitleContent>
         <TitleWrapper>
           <FirmImage
-            src={securitiesFirmLogos[securitiesFirm].src}
+            src={securitiesFirmLogos[securitiesFirm]}
             alt={`${securitiesFirm} 로고`}
           />
           <Title>{name}</Title>

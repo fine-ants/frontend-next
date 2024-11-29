@@ -18,9 +18,7 @@ import styled from "styled-components";
 
 type Props = {
   order: Order;
-  // TODO: 임시로 해결하기 위해서 타입을 지정.
-  // 추후에 공용 테이블에서 orderBy type 수정필요
-  orderBy: string | number | symbol;
+  orderBy: string;
   isAllRowsSelectedInCurrentPage: boolean;
   onRequestSort: (
     event: MouseEvent<unknown>,

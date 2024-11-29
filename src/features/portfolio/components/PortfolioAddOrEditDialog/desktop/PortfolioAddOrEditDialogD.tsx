@@ -202,7 +202,7 @@ export default function PortfolioAddOrEditDialogD({
                 {SECURITIES_FIRM.map((option) => (
                   <SelectOption key={option} value={option}>
                     <SecuritiesFirmLogo
-                      src={securitiesFirmLogos[option].src}
+                      src={securitiesFirmLogos[option]}
                       alt={option}
                     />
                     <SecuritiesFirmTitle>

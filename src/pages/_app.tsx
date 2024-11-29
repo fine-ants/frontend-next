@@ -4,6 +4,8 @@ import { authKeys } from "@/features/auth/api/queries/queryKeys";
 import { getUser } from "@/features/user/api";
 import { userKeys } from "@/features/user/api/queries/queryKeys";
 import GlobalStyles from "@/styles/GlobalStyles";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   HydrationBoundary,
   QueryClient,
@@ -55,7 +57,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <Layout>
           <main className={ibmPlexSansKR.className}>
             <GlobalStyles />
-            <Component {...pageProps} class />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Component {...pageProps} class />
+            </LocalizationProvider>
           </main>
         </Layout>
         <ReactQueryDevtools initialIsOpen={false} />

@@ -36,7 +36,7 @@ export default function RateBadge({
   );
 }
 
-const StyledRateBadge = styled.div<{
+const StyledRateBadge = styled.span<{
   $colors: { color: string; bgColor: string };
   $bgColorStatus: boolean;
   $size: Size;

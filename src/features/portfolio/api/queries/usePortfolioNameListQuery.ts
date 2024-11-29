@@ -4,7 +4,7 @@ import { portfolioKeys } from "./queryKeys";
 
 export default function usePortfolioNameListQuery() {
   return useSuspenseQuery({
-    queryKey: portfolioKeys.list.queryKey,
+    queryKey: portfolioKeys.nameList.queryKey,
     queryFn: getPortfoliosNameList,
     retry: false,
     select: (res) => res.data.portfolios,
