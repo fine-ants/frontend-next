@@ -13,7 +13,8 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import type { AppContext, AppInitialProps, AppProps } from "next/app";
+import type { AppContext, AppProps } from "next/app";
+import App from "next/app";
 import localFont from "next/font/local";
 
 const ibmPlexSansKR = localFont({
@@ -50,10 +51,10 @@ const queryClient = new QueryClient({
   // TODO : api 환경 설정 끝나고 toast 컴포넌트와 함께 CUD 피드백 적용하기
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <HydrationBoundary state={dehydrate(queryClient)}>
+      <HydrationBoundary state={pageProps.dehydratedState}>
         <Layout>
           <main className={ibmPlexSansKR.className}>
             <GlobalStyles />
@@ -68,10 +69,9 @@ export default function App({ Component, pageProps }: AppProps) {
   );
 }
 
-App.getInitialProps = async (
-  appContext: AppContext
-): Promise<AppInitialProps> => {
-  const { ctx, Component } = appContext;
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const { ctx } = appContext;
+  const appProps = await App.getInitialProps(appContext);
 
   if (ctx.req) {
     const cookies = ctx.req.headers.cookie || "";
@@ -87,14 +87,14 @@ App.getInitialProps = async (
     const hasAccessToken = !!cookiesObject["accessToken"];
     const hasRefreshToken = !!cookiesObject["refreshToken"];
 
-    await queryClient.prefetchQuery({
-      queryKey: authKeys.authStatus.queryKey,
-      queryFn: () => getAuthStatus(cookiesObject),
-      gcTime: Infinity,
-      staleTime: Infinity,
-    });
-
     if (hasAccessToken && hasRefreshToken) {
+      await queryClient.prefetchQuery({
+        queryKey: authKeys.authStatus.queryKey,
+        queryFn: () => getAuthStatus(cookiesObject),
+        gcTime: Infinity,
+        staleTime: Infinity,
+      });
+
       await queryClient.prefetchQuery({
         queryKey: userKeys.userInfo.queryKey,
         queryFn: () => getUser(cookiesObject),
@@ -104,12 +104,11 @@ App.getInitialProps = async (
     }
   }
 
-  let pageProps = {};
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
-  }
-
   return {
-    pageProps,
+    ...appProps,
+    pageProps: {
+      ...appProps.pageProps,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
