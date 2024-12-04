@@ -1,6 +1,6 @@
 import Routes from "@/constants/Routes";
+import useAuthStatusQuery from "@/features/auth/api/queries/useAuthStatusQuery";
 import PortfolioAddOrEditDialog from "@/features/portfolio/components/PortfolioAddOrEditDialog/PortfolioAddOrEditDialog";
-import useUserQuery from "@/features/user/api/queries/useUserQuery";
 import { useDropdown } from "@/hooks/useDropdown";
 import designSystem, { parseFontString } from "@/styles/designSystem";
 import { useBoolean } from "@fineants/demolition";
@@ -17,7 +17,7 @@ import PortfoliosDropdownListSkeleton from "./skeletons/PortfoliosDropdownListSk
 export function PortfoliosDropdown() {
   const router = useRouter();
 
-  const { data: user } = useUserQuery();
+  const { data: isLoggedIn } = useAuthStatusQuery();
 
   const { isOpen, onOpen, DropdownMenu, DropdownItem } = useDropdown();
 
@@ -32,7 +32,7 @@ export function PortfoliosDropdown() {
   };
 
   const onPortfolioAddClick = () => {
-    if (!user) {
+    if (!isLoggedIn) {
       router.push(Routes.SIGNIN);
       return;
     }
@@ -51,14 +51,14 @@ export function PortfoliosDropdown() {
         />
       </DropdownButton>
       <DropdownMenu sx={dropdownMenuSx}>
-        {user && (
+        {isLoggedIn && (
           <AsyncBoundary
             SuspenseFallback={<PortfoliosDropdownListSkeleton />}
             ErrorFallback={PortfoliosDropdownListErrorFallback}>
             <PortfoliosDropdownList DropdownItem={DropdownItem} />
           </AsyncBoundary>
         )}
-        <Link href={user ? Routes.PORTFOLIOS : Routes.SIGNIN}>
+        <Link href={isLoggedIn ? Routes.PORTFOLIOS : Routes.SIGNIN}>
           <DropdownItem sx={fixedDropdownItemSx}>
             포트폴리오로 이동
           </DropdownItem>
