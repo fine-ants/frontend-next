@@ -9,25 +9,6 @@ type FetcherOptions = RequestInit & {
 
 type FetcherResponse<T> = {
   data: T;
-  cookies: {
-    accessToken: string | undefined;
-    refreshToken: string | undefined;
-  };
-};
-
-const getCookies = (response: Response) => {
-  const setCookieHeader = response.headers.get("set-cookie");
-
-  const cookies = setCookieHeader?.split(", ") || [];
-
-  const accessToken = cookies.find((cookie) =>
-    cookie.startsWith("accessToken")
-  );
-  const refreshToken = cookies.find((cookie) =>
-    cookie.startsWith("refreshToken")
-  );
-
-  return { accessToken, refreshToken };
 };
 
 const handleError = async (response: Response) => {
@@ -83,7 +64,7 @@ const requestWithoutData = async <T>(
 
   const json = await response.json();
 
-  return { data: json, cookies: getCookies(response) };
+  return { data: json };
 };
 
 // 데이터를 받는 요청 (POST, PUT, PATCH)
@@ -114,7 +95,7 @@ const requestWithData = async <T>(
 
   const json = await response.json();
 
-  return { data: json, cookies: getCookies(response) };
+  return { data: json };
 };
 
 const createFetcher = (
@@ -169,16 +150,7 @@ const createFetcher = (
   };
 };
 
-const fetcherBaseURL =
-  process.env.NODE_ENV === "development"
-    ? `${CLIENT_URL}/api/proxy`
-    : `${BASE_API_URL}/api`;
-
-export const fetcher = createFetcher(fetcherBaseURL, {
-  credentials: "include",
-});
-
-export const proxyFetcher = createFetcher(`${BASE_API_URL}/api`, {
+export const fetcher = createFetcher(`${BASE_API_URL}/api`, {
   credentials: "include",
 });
 
