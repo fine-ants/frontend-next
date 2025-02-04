@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run open-browser && next dev -H local.fineants.co --experimental-https",
+    "dev": "npm run set-domain && npm run open-browser && next dev -H local.fineants.co --experimental-https",
     "open-browser": "vite-node ./scripts/open-browser.ts",
+    "set-domain": "node ./scripts/set-domain.mjs",
     "generate-api-routers": "vite-node ./scripts/proxy-api-router-generator.ts",
     "build": "next build",
     "start": "next start",
