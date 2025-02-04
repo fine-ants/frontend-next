@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import os from "os";
 
-const url = "https://localhost:3000";
+const url = "https://local.fineants.co:3000";
 
 if (os.platform() === "win32") {
   exec(`start ${url}`);
